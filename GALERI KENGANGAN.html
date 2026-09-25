@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BHASMA47 - Galeri Kenangan & Dokumen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#0B0F17',
+                        cardbg: '#131C2E',
+                        cardborder: '#1E293B',
+                        accentblue: '#3B82F6',
+                        accentpurple: '#8B5CF6',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0B0F17;
+            color: #F8FAFC;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0F17;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="bg-[#0B0F17] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-blue-500/30 selection:text-blue-200">
+
+    <header class="sticky top-0 z-40 bg-[#0B0F17]/90 backdrop-blur-md border-b border-[#1E293B]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo & Title -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+                    <img src="LOGO FOTOS.png" alt="Foto"></i>
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="font-bold text-base tracking-wider text-white">BHASMA47</span>
+                        <span class="text-[10px] font-semibold bg-purple-500/20 text-purple-400 border border-purple-500/30 px-1.5 py-0.5 rounded tracking-wide">PHOTO GALLERY</span>
+                    </div>
+                    <p class="text-xs text-slate-400">Digital Archive & Local Photo Gallery</p>
+                </div>
+            </div>
+
+            <!-- Status Indicator -->
+            <div class="flex items-center space-x-3">
+                <div class="hidden sm:flex items-center space-x-2 bg-blue-500/10 border border-blue-500/30 text-blue-400 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                    <span>Mode Lokal Aktif</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        <!-- Hero & Title Section -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+            <div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-2">
+                    GOOGLE DRIVE <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">FOLDER</span>
+                </h1>
+                <p class="text-slate-400 text-sm max-w-2xl">
+                    Kumpulan momen berharga kita yang dapat di akses dengan mudah, melalui link yang berbeda untuk setiap moment.
+                </p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="w-full md:w-80">
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                    </span>
+                    <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari nama foto atau dokumen..." 
+                           class="w-full pl-10 pr-4 py-2.5 bg-[#131C2E] border border-[#1E293B] rounded-xl text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors shadow-inner">
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between flex-wrap gap-4 mb-8 pb-4 border-b border-[#1E293B]">
+            <div class="flex flex-wrap items-center gap-2" id="filter-container">
+                <button onclick="filterCategory('Semua')" class="filter-btn active px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-blue-600 text-white shadow-md shadow-blue-600/30">
+                    Semua
+                </button>
+                <button onclick="filterCategory('Kebersamaan')" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-[#131C2E] text-slate-300 hover:bg-[#1E293B] border border-[#1E293B]">
+                    Kebersamaan
+                </button>
+                <button onclick="filterCategory('Kegiatan')" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-[#131C2E] text-slate-300 hover:bg-[#1E293B] border border-[#1E293B]">
+                    Kegiatan
+                </button>
+                <button onclick="filterCategory('Tilawati')" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-[#131C2E] text-slate-300 hover:bg-[#1E293B] border border-[#1E293B]">
+                    Tilawati
+                </button>
+                <button onclick="filterCategory('Olahraga')" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-[#131C2E] text-slate-300 hover:bg-[#1E293B] border border-[#1E293B]">
+                    Olahraga
+                </button>
+                <button onclick="filterCategory('Random')" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-[#131C2E] text-slate-300 hover:bg-[#1E293B] border border-[#1E293B]">
+                    Random
+                </button>
+            </div>
+
+            <!-- Item Counter -->
+            <div class="text-xs text-slate-400 font-medium">
+                Menampilkan <span id="item-count" class="text-blue-400 font-bold">0</span> item tersimpan
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" id="gallery-grid">
+            <!-- Items rendered dynamically via JavaScript -->
+        </div>
+
+        <!-- Empty State (Hidden by default) -->
+        <div id="empty-state" class="hidden text-center py-20">
+            <div class="w-16 h-16 rounded-full bg-[#131C2E] border border-[#1E293B] flex items-center justify-center mx-auto text-slate-500 text-2xl mb-4">
+                <i class="fa-regular fa-folder-open"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-300 mb-1">Tidak ada item ditemukan</h3>
+            <p class="text-xs text-slate-500">Coba kata kunci lain atau pilih kategori berbeda.</p>
+        </div>
+    </main>
+
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="relative max-w-4xl w-full bg-[#131C2E] rounded-2xl overflow-hidden shadow-2xl border border-[#1E293B] flex flex-col md:flex-row max-h-[90vh]">
+            <!-- Close Button -->
+            <button onclick="closeLightbox()" class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center hover:bg-slate-700 transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Media Preview Area -->
+            <div class="md:w-3/5 bg-black/60 flex items-center justify-center relative min-h-[300px] md:min-h-[450px] p-4">
+                <img id="lightbox-image" src="" alt="Preview" class="max-h-[75vh] object-contain rounded-lg">
+                <div id="lightbox-pdf-icon" class="hidden flex-col items-center justify-center text-center p-8">
+                    <div class="w-20 h-20 rounded-2xl bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center text-3xl mb-4">
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </div>
+                    <span class="text-sm font-semibold text-purple-300">Dokumen Arsip / PDF</span>
+                </div>
+            </div>
+
+            <!-- Details Area -->
+            <div class="md:w-2/5 p-6 flex flex-col justify-between bg-[#131C2E]">
+                <div>
+                    <div class="inline-block px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[10px] uppercase font-semibold tracking-wider mb-3" id="lightbox-category">
+                        Kategori
+                    </div>
+                    <h3 id="lightbox-title" class="text-xl font-bold text-white mb-2">Judul Item</h3>
+                    <p id="lightbox-desc" class="text-xs text-slate-400 leading-relaxed mb-6">Deskripsi lengkap dari item arsip galeri ini.</p>
+                </div>
+
+                <div class="space-y-4 pt-4 border-t border-[#1E293B]">
+                    <div class="flex items-center justify-between text-xs text-slate-400">
+                        <span class="flex items-center"><i class="fa-regular fa-calendar mr-2 text-blue-400"></i> <span id="lightbox-date">-</span></span>
+                        <span class="flex items-center"><i class="fa-solid fa-hard-drive mr-2 text-purple-400"></i> <span id="lightbox-size">-</span></span>
+                    </div>
+                    
+                    <!-- Tombol Tautan / Link Dinamis -->
+                    <div id="lightbox-link-container" class="hidden">
+                        <a id="lightbox-link-btn" href="#" target="_blank" class="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-xl transition-colors flex items-center justify-center space-x-2 mb-2">
+                            <i class="fa-solid fa-external-link-alt"></i>
+                            <span>Buka Tautan / Link</span>
+                        </a>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <button onclick="closeLightbox()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition-colors">
+                            Tutup Preview
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-[#1E293B] py-6 text-center text-xs text-slate-500 bg-[#0B0F17]">
+        <p>&copy; 2026 BHASMA47 Digital Archive. Script-Only Managed Album.</p>
+    </footer>
+
+    <script>
+        // KOLEKSI DATA FOTO & DOKUMEN LOKAL (Total 32 Item dengan opsi link mandiri)
+        const archiveData = [
+            {
+                id: 1,
+                title: "Foto Diklat tilawati 2026",
+                category: "Tilawati",
+                date: "12-13 September 2026",
+                size: "4.2 MB",
+                type: "image",
+                url: "_dsc1764.jpg",
+                link: "https://drive.google.com/drive/folders/1kpJwC71n2h3DkQ-IR8RbKwtEdbmfypMM?usp=drive_link", // <-- Masukkan link tujuan di sini
+                desc: "Foto Bersama diklat tilawati saat kelas 3 aliyah tahun 2026, IKN al falah Putera Banjarbaru."
+            },
+            {
+                id: 2,
+                title: "Panitia Hut 81 RI Tahun 2026",
+                category: "17 agustusan",
+                date: "17 Agustus 2026",
+                size: "1.8 MB",
+                type: "image",
+                url: "_dsc2900.jpg",
+                link: "https://drive.google.com/drive/folders/1BfXjOfTxFGLpMX6HvaD5krqaU0zxIOa9?usp=drive_link", // <-- Contoh link untuk item ke-2
+                desc: "Dokumentasi panitia 17 agustusan 2026 IKPPF 26/27 Tahun 2026."
+            },
+            {
+                id: 3,
+                title: "Pelantikan Staf IKPPF 26/27",
+                category: "Pelantikan",
+                date: "03 Juni 2026",
+                size: "3.5 MB",
+                type: "image",
+                url: "_dsc3942.jpg",
+                link: "https://drive.google.com/drive/folders/1rZj_wFKhfkztnL2SVHqJkZgfx5gYVkZS?usp=drive_link", // Kosongkan jika tidak ada link
+                desc: "Dokumentasi Pelantikan Staf IKPPF Masa Bakti 2026/2027 Oleh Angkatan Bhasma 47 generation of al falah boarding school."
+            },
+            {
+                id: 4,
+                title: "Pendidikan Dan Pelatihan Tilawati",
+                category: "Tilawati",
+                date: "12-13 September 2026",
+                size: "5.1 MB",
+                type: "image",
+                url: "_mda3280.jpg",
+                link: "https://drive.google.com/drive/folders/17N-vyZ8nrUVootk7tQp2AoHDZWSllLDP?usp=drive_link",
+                desc: "No Caption."
+            },
+            {
+                id: 5,
+                title: "Akmal Main Trail",
+                category: "Random",
+                date: "04 Agustus 2026",
+                size: "820 KB",
+                type: "image",
+                url: "_DSC8893.jpg",
+                link: "https://drive.google.com/drive/folders/1lHA7z2TK5eLAu9BnoLex2zR6CirI8nRD?usp=drive_link",
+                desc: "Gabut jua nih, asal ada hja sudah foto buhan nyawa."
+            },
+            {
+                id: 6,
+                title: "Panitia Yel-Yel",
+                category: "Yel-Yel",
+                date: "14 Agustus 2026",
+                size: "2.9 MB",
+                type: "image",
+                url: "_DSC1294.jpg",
+                link: "https://drive.google.com/drive/folders/1sstksdwNB9S4-Yi5eGx5NnDbFZzrBEvL?usp=drive_link",
+                desc: "INI ayah Kalian lagi jadi panitia lomba yel-yel ya child."
+            },
+            {
+                id: 7,
+                title: "BTS LOMBA 17san",
+                category: "Random",
+                date: "03 Agustus 2026",
+                size: "3.2 MB",
+                type: "image",
+                url: "IMG_0026.jpg",
+                link: "https://drive.google.com/drive/folders/1Yp4Owm7B2IMKJ72qiYjfEJAqt4haCZ-K?usp=drive_link",
+                desc: "Ini Lagi Buat video, Sangat mendadak sekali ini panitianya."
+            },
+            {
+                id: 8,
+                title: "Malam Takbiran",
+                category: "Idul Adha",
+                date: "24 Juli 2026",
+                size: "4.7 MB",
+                type: "image",
+                url: "IMG_8646.jpeg",
+                link: "https://drive.google.com/drive/folders/1wLfzQg5umONXJ0t2QVgOwN7Jg1wDgE2V?usp=drive_link",
+                desc: "Ini Kami pertama kali EID Mubarak di pondok."
+            },
+            {
+                id: 9,
+                title: "Nyambut Habib Ibrahim",
+                category: "Rihlah",
+                date: "30 Jun 2026",
+                size: "12.4 MB",
+                type: "image",
+                url: "IMG_2555.jpg",
+                link: "https://drive.google.com/drive/folders/1uYkLmQNiJZEnKBPLtlFAkxheaEpEBQx6?usp=drive_link", // Contoh link download PDF
+                desc: "intinya ini nyambut habib ibrahim dari lawang, Jawa Tengah."
+            },
+            {
+                id: 10,
+                title: "Nyambut Santri Baru",
+                category: "Moment",
+                date: "14 Agu 2026",
+                size: "2.8 MB",
+                type: "image",
+                url: "_DSC7452.jpg",
+                link: "https://drive.google.com/drive/folders/1eHY0Ej-5fteKUBaKgaewtHV7L54j7mh8?usp=drive_link",
+                desc: "Perlombaan tradisional dan modern merayakan hari kemerdekaan di lapangan sekolah."
+            },
+            {
+                id: 11,
+                title: "Sparing 3 Aliyah",
+                category: "Sparing",
+                date: "24 September 2026",
+                size: "3.9 MB",
+                type: "image",
+                url: "MDA7379.jpg",
+                link: "https://drive.google.com/drive/folders/1tpVGB52R2yWpYKxWsfLFZbr4Smh4QqnD?usp=drive_link",
+                desc: "Sparing Kelas 3 ulya dengan kelas Tajhizi ( menang 6 : 0 anjjir kelas banget)"
+            },
+            {
+                id: 12,
+                title: "Panitia Pengukuhan Ahqaf",
+                category: "Panitia",
+                date: "24 Jul 2026",
+                size: "4.0 MB",
+                type: "image",
+                url: "IMG_7649.jpg",
+                link: "https://drive.google.com/drive/folders/1ebGWEW4tsrJuVkrTw1z-BD1GAxVAPZqs?usp=drive_link",
+                desc: "Panitia pembantu acara pengukuhan madrasah aliyah tahun ajaran 2025/2026."
+            },
+            {
+                id: 13,
+                title: "Kunjungan Laboratorium Komputer",
+                category: "Kegiatan",
+                date: "15 Sep 2024",
+                size: "2.5 MB",
+                type: "image",
+                url: "",
+                link: "",
+                desc: "Praktikum pemrograman dan simulasi ujian berbasis komputer bersama tim IT sekolah."
+            },
+            {
+                id: 14,
+                title: "Pameran Karya Seni Rupa Siswa",
+                category: "Kegiatan",
+                date: "22 Okt 2024",
+                size: "3.1 MB",
+                type: "image",
+                url: "",
+                link: "",
+                desc: "Pajangan hasil karya lukisan dan kerajinan tangan dari siswa-siswi kelas XII."
+            },
+            {
+                id: 15,
+                title: "Lomba Debat Bahasa Indonesia",
+                category: "Formal",
+                date: "08 Nov 2024",
+                size: "2.2 MB",
+                type: "image",
+                url: "",
+                link: "",
+                desc: "Perwakilan tim debat sekolah yang berhasil meraih juara pertama tingkat kabupaten."
+            },
+            {
+                id: 16,
+                title: "Pramuka Bantara & Penerimaan Tamu",
+                category: "Kebersamaan",
+                date: "18 Agu 2024",
+                size: "4.4 MB",
+                type: "image",
+                url: "",
+                link: "",
+                desc: "Kegiatan perkemahan jumat sabtu dalam rangka pelantikan bantara."
+            },
+            {
+                id: 17,
+                title: "Senam Pagi Bersama Seluruh Warga Sekolah",
+                category: "Olahraga",
+                date: "05 Des 2024",
+                size: "3.0 MB",
+                type: "image",
+                url: "",
+                link: "https://drive.google.com/drive/folders/1BCuYvQtceu-7XVSTFFnfY7Vak7jSsRmX?usp=drive_link",
+                desc: "Aktivitas kebugaran jasmani yang rutin diadakan setiap Jumat pagi."
+            },
+            {
+                id: 18,
+                title: "Rapat Pleno Panitia Perpisahan",
+                category: "Formal",
+                date: "12 Mar 2025",
+                size: "1.5 MB",
+                type: "pdf",
+                url: "",
+                link: "",
+                desc: "Dokumen hasil musyawarah dan rencana anggaran biaya acara perpisahan angkatan."
+            },
+            {
+                id: 19,
+                title: "Perayaan Hari Guru Nasional",
+                category: "Kebersamaan",
+                date: "25 Nov 2024",
+                size: "3.8 MB",
+                type: "image",
+                url: "",
+                link: "",
+                desc: "Pemberian kejutan dan buket bunga dari pengurus kelas kepada bapak ibu guru."
+            },
+            {
+                id: 20,
+                title: "Bakti Lingkungan & Penanaman Pohon",
+                category: "Kegiatan",
+                date: "10 Jan 2025",
+                size: "3.6 MB",
+                type: "image",
+                url: "",
+                link: "",
+                desc: "Aksi hijau penghijauan area sekitar sekolah demi menciptakan lingkungan asri."
+            },
+            {
+                id: 21,
+                title: "Kompetisi Esport Mobile Legends",
+                category: "Olahraga",
+                date: "20 Feb 2025",
+                size: "2.7 MB",
+                type: "image",
+                url: "",
+                link: "",
+                desc: "Turnamen game antar angkatan yang diselenggarakan oleh ekstrakurikuler multimedia."
+            },
+            {
+                id: 22,
+                title: "Buku Panduan Ujian Praktik Sekolah",
+                category: "Formal",
+                date: "15 Apr 2025",
+                size: "2.1 MB",
+                type: "pdf",
+                url: "",
+                link: "",
+                desc: "Silabus dan petunjuk teknis pelaksanaan ujian praktik seluruh mata pelajaran."
+            },
+            {
+                id: 23,
+                title: "Kunjungan Museum Sejarah Lokal",
+                category: "Kegiatan",
+                date: "05 Des 2024",
+                size: "4.1 MB",
+                type: "image",
+                url: "",
+                link: "",
+                desc: "Ekskursi edukasi sejarah untuk mendalami warisan budaya lokal."
+            },
+            {
+                id: 24,
+                title: "Gathering Akhir Pekan Cafe Sunset",
+                category: "Kebersamaan",
+                date: "28 Jun 2025",
+                size: "4.9 MB",
+                type: "image",
+                url: "",
+                link: "",
+                desc: "Momen santai menikmati sore hari bersama sahabat dekat menjelang kuliah."
+            },
+            {
+                id: 25,
+                title: "Lomba Paduan Suara Antar Kelas",
+                category: "Kegiatan",
+                date: "17 Agu 2024",
+                size: "3.3 MB",
+                type: "image",
+                url: "",
+                link: "",
+                desc: "Harmoni suara merdu membawakan lagu-lagu nasional dengan penuh semangat."
+            },
+            {
+                id: 26,
+                title: "Pertandingan Voli Antar Jurusan",
+                category: "Olahraga",
+                date: "12 Mar 2025",
+                size: "3.4 MB",
+                type: "image",
+                url: "",
+                link: "",
+                desc: "Smash keras dan sorak penonton memeriahkan lapangan voli outdoor."
+            },
+            {
+                id: 27,
+                title: "Data Nilai Kelulusan Siswa Angkatan 47",
+                category: "Formal",
+                date: "30 Jun 2025",
+                size: "1.1 MB",
+                type: "pdf",
+                url: "",
+                link: "https://drive.google.com/drive/folders/1BCuYvQtceu-7XVSTFFnfY7Vak7jSsRmX?usp=drive_link",
+                desc: "Arsip rekapitulasi nilai akhir dan transkrip kelulusan siswa."
+            },
+            {
+                id: 28,
+                title: "Workshop Kewirausahaan Muda",
+                category: "Kegiatan",
+                date: "14 Feb 2025",
+                size: "2.6 MB",
+                type: "image",
+                url: "",
+                link: "",
+                desc: "Pelatihan bisnis digital dan pembuatan produk kreatif bagi siswa tingkat akhir."
+            },
+            {
+                id: 29,
+                title: "Pelepasan Balon Harapan Masa Depan",
+                category: "Kebersamaan",
+                date: "12 Jun 2025",
+                size: "4.5 MB",
+                type: "image",
+                url: "",
+                link: "",
+                desc: "Menerbangkan balon berisi cita-cita dan impian bersama seluruh angkatan."
+            },
+            {
+                id: 30,
+                title: "Dokumentasi Foto Studio Individual",
+                category: "Formal",
+                date: "05 Jun 2025",
+                size: "5.0 MB",
+                type: "image",
+                url: "",
+                link: "",
+                desc: "Sesi pemotretan profesional untuk keperluan pas foto ijazah dan album tahunan."
+            },
+            {
+                id: 31,
+                title: "Buka Puasa Bersama Anak Yatim",
+                category: "Kebersamaan",
+                date: "15 Apr 2024",
+                size: "3.7 MB",
+                type: "image",
+                url: "",
+                link: "",
+                desc: "Kegiatan berbagi kebahagiaan dan santunan sosial di bulan suci Ramadhan."
+            },
+            {
+                id: 32,
+                title: "Arsip Arsip Dokumen Penting Angkatan",
+                category: "Lainnya",
+                date: "01 Jul 2025",
+                size: "8.9 MB",
+                type: "pdf",
+                url: "",
+                link: "",
+                desc: "Kumpulan arsip surat izin, proposal kegiatan, dan administrasi angkatan 47."
+            }
+        ];
+
+        let currentCategory = 'Semua';
+
+        // Render Gallery function
+        function renderGallery(items) {
+            const grid = document.getElementById('gallery-grid');
+            const emptyState = document.getElementById('empty-state');
+            grid.innerHTML = '';
+
+            document.getElementById('item-count').textContent = items.length;
+
+            if (items.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            items.forEach((item) => {
+                const card = document.createElement('div');
+                card.className = 'bg-[#131C2E] border border-[#1E293B] rounded-2xl overflow-hidden shadow-lg hover:border-blue-500/50 transition-all duration-300 group flex flex-col justify-between';
+
+                let previewContent = '';
+                if (item.type === 'image') {
+                    previewContent = `
+                        <div class="relative aspect-video w-full overflow-hidden bg-slate-900">
+                            <img src="${item.url}" alt="${item.title}" 
+                                 onerror="this.src='https://placehold.co/600x400/131C2E/3B82F6?text=Foto+BHASMA47'"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 left-3">
+                                <span class="px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md text-[10px] font-semibold text-white border border-white/10">
+                                    ${item.category}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    previewContent = `
+                        <div class="relative aspect-video w-full bg-gradient-to-br from-purple-950/40 to-[#131C2E] flex flex-col items-center justify-center border-b border-[#1E293B]">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center text-xl mb-2 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-file-pdf"></i>
+                            </div>
+                            <span class="text-xs font-bold text-slate-300">DOKUMEN PDF</span>
+                            <div class="absolute top-3 left-3">
+                                <span class="px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md text-[10px] font-semibold text-white border border-white/10">
+                                    ${item.category}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div>
+                        ${previewContent}
+                        <div class="p-4">
+                            <h3 class="font-semibold text-sm text-white mb-2 line-clamp-1 group-hover:text-blue-400 transition-colors">${item.title}</h3>
+                            <div class="flex items-center justify-between text-[11px] text-slate-400">
+                                <span class="flex items-center"><i class="fa-regular fa-calendar mr-1.5 text-slate-500"></i> ${item.date}</span>
+                                <span class="flex items-center"><i class="fa-solid fa-hard-drive mr-1.5 text-slate-500"></i> ${item.size}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-4 pt-2 border-t border-[#1E293B]/60 flex items-center justify-between">
+                        <button onclick='openLightbox(${JSON.stringify(item)})' class="w-full py-2 bg-[#1E293B]/60 hover:bg-blue-600 hover:text-white text-slate-300 text-xs font-semibold rounded-xl transition-all flex items-center justify-center space-x-2">
+                            <i class="fa-regular fa-eye"></i>
+                            <span>Lihat Preview</span>
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        // Filter Category Function
+        function filterCategory(category) {
+            currentCategory = category;
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => {
+                if (btn.textContent.trim() === category) {
+                    btn.className = 'filter-btn active px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-blue-600 text-white shadow-md shadow-blue-600/30';
+                } else {
+                    btn.className = 'filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-[#131C2E] text-slate-300 hover:bg-[#1E293B] border border-[#1E293B]';
+                }
+            });
+
+            applyFilters();
+        }
+
+        // Search & Filter Combination
+        function handleSearch() {
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            
+            let filtered = archiveData.filter(item => {
+                const matchesCategory = currentCategory === 'Semua' || item.category === currentCategory;
+                const matchesSearch = item.title.toLowerCase().includes(query) || item.date.toLowerCase().includes(query) || item.category.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query);
+                return matchesCategory && matchesSearch;
+            });
+
+            renderGallery(filtered);
+        }
+
+        // Lightbox Functions
+        function openLightbox(item) {
+            const lightbox = document.getElementById('lightbox');
+            const imgEl = document.getElementById('lightbox-image');
+            const pdfIconEl = document.getElementById('lightbox-pdf-icon');
+            
+            document.getElementById('lightbox-category').textContent = item.category;
+            document.getElementById('lightbox-title').textContent = item.title;
+            document.getElementById('lightbox-desc').textContent = item.desc;
+            document.getElementById('lightbox-date').textContent = item.date;
+            document.getElementById('lightbox-size').textContent = item.size;
+
+            // Pengaturan Tautan / Link Dinamis pada Lightbox untuk Masing-masing Item
+            const linkContainer = document.getElementById('lightbox-link-container');
+            const linkBtn = document.getElementById('lightbox-link-btn');
+            
+            if (item.link && item.link.trim() !== "") {
+                linkBtn.href = item.link;
+                linkContainer.classList.remove('hidden'); // Menampilkan tombol jika link tersedia
+            } else {
+                linkContainer.classList.add('hidden'); // Menyembunyikan tombol jika link kosong/tidak ada
+            }
+
+            if (item.type === 'image') {
+                imgEl.src = item.url;
+                imgEl.classList.remove('hidden');
+                pdfIconEl.classList.add('hidden');
+            } else {
+                imgEl.classList.add('hidden');
+                pdfIconEl.classList.remove('hidden');
+                pdfIconEl.classList.add('flex');
+            }
+
+            lightbox.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close on background click or ESC
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('lightbox')) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        // Initial Load
+        window.onload = function() {
+            renderGallery(archiveData);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>berkatkhidmatsukses bersama.my.id</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: {
+                            base: '#080B11',
+                            surface: '#0F172A',
+                            card: '#131C31',
+                            border: 'rgba(255, 255, 255, 0.08)',
+                        },
+                        accent: {
+                            cyan: '#06B6D4',
+                            purple: '#8B5CF6',
+                            emerald: '#10B981',
+                            blue: '#3B82F6',
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'hero-glow': 'radial-gradient(circle at 50% 20%, rgba(139, 92, 246, 0.15), rgba(6, 182, 212, 0.05) 50%, transparent 80%)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles & Glassmorphism */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #080B11;
+            color: #E2E8F0;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(19, 28, 49, 0.5);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .glass-card-hover {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card-hover:hover {
+            transform: translateY(-6px);
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 20px 40px -15px rgba(6, 182, 212, 0.2);
+        }
+
+        .glass-nav {
+            background: rgba(8, 11, 17, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #A5F3FC 0%, #38BDF8 50%, #818CF8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-purple {
+            background: linear-gradient(135deg, #E0E7FF 0%, #C084FC 50%, #E879F9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-effect {
+            position: relative;
+        }
+
+        .glow-effect::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #06B6D4, #8B5CF6, #10B981);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            filter: blur(12px);
+        }
+
+        .glow-effect:hover::before {
+            opacity: 0.6;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080B11;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-500 selection:text-white">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300" id="mainNav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Brand / Logo (Header Top Left) -->
+                <a href="#beranda" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-purple-600 p-[1.5px] flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all duration-300">
+                        <div class="w-full h-full bg-dark-base rounded-[10px] flex items-center justify-center">
+                            <!-- Modern SVG Logo -->
+                            <img <img 
+  src="LOGO BHASMA PDF.png" 
+  alt="Logo Bhasma47" 
+  class="w-20 h-20 object-contain group-hover:scale-110 transition-transform duration-300"
+/>
+                                <path 
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-heading font-bold text-xl tracking-tight text-white group-hover:text-cyan-300 transition-colors">
+                            BHASMA<span class="text-cyan-400">47</span>
+                        </span>
+                        <span class="text-[10px] tracking-widest uppercase text-slate-400 font-medium">Since 2020</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <a href="#beranda" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all">Beranda</a>
+                    <a href="#tentang" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all">Tentang Kami</a>
+                    <a href="#galeri" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all">Galeri</a>
+                    <a href="#dokumen" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all">Dokumen & Drive</a>
+                    <a href="#kontak" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all">Kontak</a>
+                </div>
+
+                <!-- Desktop CTA Button -->
+                <div class="hidden md:flex items-center">
+                    <a href="#dokumen" class="relative group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm text-white overflow-hidden shadow-lg shadow-cyan-500/10 hover:shadow-cyan-500/25 transition-all">
+                        <div class="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 group-hover:opacity-90 transition-opacity"></div>
+                        <i class="fab font-normal fa-google-drive relative z-10 text-cyan-200"></i>
+                        <span class="relative z-10">Akses Drive</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobileMenuBtn" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 focus:outline-none">
+                        <i class="fas fa-bars text-xl" id="menuIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden glass-nav border-t border-white/10 px-4 pt-2 pb-6 space-y-2">
+            <a href="#beranda" class="mobile-link block px-4 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-white/10">Beranda</a>
+            <a href="#tentang" class="mobile-link block px-4 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-white/10">Tentang Kami</a>
+            <a href="#galeri" class="mobile-link block px-4 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-white/10">Galeri</a>
+            <a href="#dokumen" class="mobile-link block px-4 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-white/10">Dokumen & Drive</a>
+            <a href="#kontak" class="mobile-link block px-4 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-white/10">Kontak</a>
+            <div class="pt-2">
+                <a href="#dokumen" class="mobile-link block w-full text-center px-5 py-3 rounded-xl font-medium text-white bg-gradient-to-r from-cyan-500 to-blue-600">
+                    <i class="fab fa-google-drive mr-2"></i>Akses Drive Publik
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="relative min-h-screen pt-32 pb-20 flex items-center justify-center bg-hero-glow overflow-hidden">
+        <!-- Ambient Background Spheres -->
+        <div class="absolute top-1/4 left-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            
+            <!-- Badge Top -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border-cyan-500/30 text-cyan-300 text-xs sm:text-sm font-medium mb-8 animate-fade-in">
+                <span class="flex h-2 w-2 rounded-full bg-cyan-400 animate-ping"></span>
+                <span>47th Generation Of Al Falah Boarding School</span>
+            </div>
+
+            <!-- Hero Headline -->
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-heading font-extrabold text-white tracking-tight leading-[1.15] mb-6 max-w-4xl mx-auto">
+                 <span class="text-gradient">BHASMA FOURTY SEVEN GENERATION</span>
+            </h1>
+
+            <!-- Hero Subtitle -->
+            <p class="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed mb-10 font-normal">
+                 The 47th generation of the Al Falah Putera Islamic Boarding School, Banjarbaru.
+            </p>
+
+            <!-- Hero CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+                <a href="#dokumen" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 hover:opacity-95 shadow-lg shadow-cyan-500/25 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-3 group">
+                    <i class="fab fa-google-drive text-lg text-cyan-200 group-hover:rotate-12 transition-transform"></i>
+                    <span>Jelajahi Berkas Drive</span>
+                </a>
+                <a href="Galeri Frame.html" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-slate-200 glass-card hover:bg-white/10 hover:text-white transition-all border border-white/10 flex items-center justify-center gap-2">
+                    <span>Web Nama - Nama Anggota </span>
+                    <i class="fas fa-arrow-right text-xs text-slate-400"></i>
+                </a>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 max-w-4xl mx-auto">
+                <div class="glass-card p-5 rounded-2xl">
+                    <div class="font-heading font-bold text-3xl sm:text-4xl text-cyan-400">12+</div>
+                    <div class="text-xs sm:text-sm text-slate-400 mt-1">Tahun Pengabdian</div>
+                </div>
+                <div class="glass-card p-5 rounded-2xl">
+                    <div class="font-heading font-bold text-3xl sm:text-4xl text-purple-400">150+</div>
+                    <div class="text-xs sm:text-sm text-slate-400 mt-1">Program Sukses</div>
+                </div>
+                <div class="glass-card p-5 rounded-2xl">
+                    <div class="font-heading font-bold text-3xl sm:text-4xl text-emerald-400">25K+</div>
+                    <div class="text-xs sm:text-sm text-slate-400 mt-1">Penerima Manfaat</div>
+                </div>
+                <div class="glass-card p-5 rounded-2xl">
+                    <div class="font-heading font-bold text-3xl sm:text-4xl text-blue-400">100%</div>
+                    <div class="text-xs sm:text-sm text-slate-400 mt-1">Transparansi Dokumen</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- About Section (Tentang Kami) -->
+    <section id="tentang" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs uppercase tracking-widest text-cyan-400 font-semibold mb-3">Perkenalan</h2>
+                <h3 class="text-3xl sm:text-5xl font-heading font-bold text-white mb-6">Mengenal lebih dekat BHASMA 47</h3>
+                <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                    BHASMA 47 Adalah singkatan dari BERKAT KHIDMAT SUKSES BERSAMA Sebuah nama untuk identitas kami sebagai generasi ke 47 dari pondok pesantren kami yaitu PONDOK PESANTREN AL FALAH PUTERA BANJARBARU.
+                </p>
+            </div>
+
+            <!-- Grid Content: Vision, Mission & Values -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Card Visi -->
+                <div class="glass-card glass-card-hover p-8 rounded-3xl relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <img src="IKPPF.png" alt="Foto"></i>
+                    </div>
+                    <h4 class="text-2xl font-heading font-bold text-white mb-3">Visi Utama</h4>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Menjadi lembaga acuan global yang inklusif, inovatif, dan berdaya saing tinggi dalam mencetak sumber daya unggul yang berdampak positif bagi peradaban.
+                    </p>
+                </div>
+
+                <!-- Card Misi -->
+                <div class="glass-card glass-card-hover p-8 rounded-3xl relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h4 class="text-2xl font-heading font-bold text-white mb-3">Misi Kami</h4>
+                    <ul class="text-slate-300 text-sm leading-relaxed space-y-2">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-purple-400 text-xs mt-1"></i>
+                            <span>Menyelenggarakan riset dan program terapan berkualitas tinggi.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-purple-400 text-xs mt-1"></i>
+                            <span>Mendorong keterbukaan informasi dan kemudahan akses data publik.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-purple-400 text-xs mt-1"></i>
+                            <span>Membangun kolaborasi strategis tingkat nasional dan internasional.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card Nilai / Pillar -->
+                <div class="glass-card glass-card-hover p-8 rounded-3xl relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+                    <h4 class="text-2xl font-heading font-bold text-white mb-3">Nilai Inti</h4>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Integritas, Transparansi, Inovasi, dan Akuntabilitas menjadi fondasi mendasar dalam setiap langkah dan kebijakan lembaga kami.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Integritas</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">Inovasi</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-purple-500/10 text-purple-300 border border-purple-500/20">Transparan</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Gallery Section (Foto Perkenalan) -->
+    <section id="galeri" class="py-24 bg-slate-950/50 relative z-10 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <h2 class="text-xs uppercase tracking-widest text-cyan-400 font-semibold mb-3">Dokumentasi & Arsip Perjalanan</h2>
+                    <h3 class="text-3xl sm:text-4xl font-heading font-bold text-white">Galeri Foto Kenangan</h3>
+                </div>
+                <p class="text-slate-400 text-sm max-w-md mt-4 md:mt-0">
+                    Dokumentasi perjalanan kami generasi ke 47 BHASMA Selama  7 Tahun belajar bersama.
+                </p>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Photo 1 -->
+                <div class="group relative rounded-2xl overflow-hidden glass-card cursor-pointer" onclick="openLightbox('IMG_605i', 'Diskusi Tim Riset Lembaga')">
+                    <img src="img_6051.jpg" alt="Diskusi Kolaboratif" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/0F172A/06B6D4?text=Diskusi+Tim'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-base via-dark-base/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <span class="text-xs font-semibold text-cyan-400 uppercase tracking-wider">ULTRAS BHASMA</span>
+                        <h4 class="text-lg font-bold text-white mt-1">Arsip Haflah Bhasma TAHUN 2024</h4>
+                    </div>
+                </div>
+
+                <!-- Photo 2 -->
+                <div class="group relative rounded-2xl overflow-hidden glass-card cursor-pointer" onclick="openLightbox('IMG_6051', 'Seminar & Workshop Tahunan')">
+                    <img src="_DSC2900.JPG" alt="Seminar Tahunan" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/0F172A/8B5CF6?text=Seminar+Lembaga'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-base via-dark-base/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <span class="text-xs font-semibold text-purple-400 uppercase tracking-wider">PANITIA 17 AGUSTUS</span>
+                        <h4 class="text-lg font-bold text-white mt-1">Arsip IKPPF Masa Bakti 26/27 TAHUN 2026</h4>
+                    </div>
+                </div>
+
+                <!-- Photo 3 -->
+                <div class="group relative rounded-2xl overflow-hidden glass-card cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80', 'Fasilitas Laboratorium & Kantor')">
+                    <img src="_MDA3280.jpg" alt="Fasilitas Kantor" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/0F172A/10B981?text=Fasilitas+Kantor'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-base via-dark-base/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wider">DIKLAT TILAWATI</span>
+                        <h4 class="text-lg font-bold text-white mt-1">Arsip IKPPF Tahun 2026</h4>
+                    </div>
+                </div>
+
+                <!-- Photo 4 -->
+                <div class="group relative rounded-2xl overflow-hidden glass-card cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80', 'Penandatanganan Kerjasama')">
+                    <img src="_DSC3942.JPG" alt="Penandatanganan Mou" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/0F172A/3B82F6?text=Kerjasama+Mitra'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-base via-dark-base/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider">PELANTIKAN IKPPF 26/27</span>
+                        <h4 class="text-lg font-bold text-white mt-1">Arsip BHASMA 2026</h4>
+                    </div>
+                </div>
+
+                <!-- Photo 5 -->
+                <div class="group relative rounded-2xl overflow-hidden glass-card cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80', 'Pengabdian Masyarakat')">
+                    <img src="IMG_9284.JPG" alt="Pengabdian Masyarakat" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/0F172A/06B6D4?text=Pengabdian'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-base via-dark-base/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <span class="text-xs font-semibold text-cyan-400 uppercase tracking-wider">HARI SANTRI TAHUN 2024</span>
+                        <h4 class="text-lg font-bold text-white mt-1">Arsip BHASMA 47 Tahun 2024</h4>
+                    </div>
+                </div>
+
+                <!-- Photo 6 -->
+                <div class="group relative rounded-2xl overflow-hidden glass-card cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1200&q=80', 'Penghargaan & Pencapaian')">
+                    <img src="_DSC1764.jpg" alt="Penghargaan Riset" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/0F172A/8B5CF6?text=Pencapaian'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-base via-dark-base/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <span class="text-xs font-semibold text-purple-400 uppercase tracking-wider">TILAWATI MOMENT</span>
+                        <h4 class="text-lg font-bold text-white mt-1">Arsip IKPPF Tahun 2026</h4>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Google Drive Documents Repository Section -->
+    <section id="dokumen" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Header Section -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium mb-4">
+                    <i class="fab fa-google-drive"></i>
+                    <span>Repositori Dokumentasi Publik</span>
+                </div>
+                <h3 class="text-3xl sm:text-5xl font-heading font-bold text-white mb-6">Unduh foto dan kenangan kita</h3>
+                <p class="text-slate-300 text-base sm:text-lg">
+                    Arsip dokumentasai perjalanan BHASMA 47 selama hampir 7 tahun, dan dapat di akses dengan mudah untuk setiap anggota.
+                </p>
+            </div>
+
+            <!-- Main Drive Link Callout Banner -->
+            <div class="glass-card rounded-3xl p-8 sm:p-10 mb-12 border-gradient relative overflow-hidden bg-gradient-to-r from-cyan-950/40 via-dark-card to-purple-950/40">
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+                    <div class="flex items-center gap-6">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white text-3xl sm:text-4xl shadow-xl shadow-cyan-500/20 shrink-0">
+                            <img src="LOGO FOTOS.png" alt="Foto"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl sm:text-2xl font-heading font-bold text-white">LIHAT GALERI FOTO DOKUMENTASI TERBAIK</h4>
+                            <p class="text-slate-300 text-sm mt-1">Website ini hanya menampilkan beberapa foto terbaik supaya bisa di akses dengan mudah, Dan akan di update dengan foto" terbaik Lainnya.</p>
+                        </div>
+                    </div>
+                    <a href="GALERI KENGANGAN.html" target="_blank" rel="noopener noreferrer" class="w-full lg:w-auto px-8 py-4 rounded-xl font-semibold text-white bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-3 shrink-0">
+                        <span>Galeri Arsipan</span>
+                        <i class="fas fa-external-link-alt text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Individual Document Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Document Card 1 -->
+                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-xl">
+                                <i class="fas fa-folder-open"></i>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md bg-white/5 text-slate-400 text-xs font-mono">Drive link</span>
+                        </div>
+                        <h5 class="text-lg font-heading font-bold text-white mb-2">Arsip drive Kelas 1 WUSTHA (2021/2022)</h5>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                            Arsipan ini belum di dapatkan, jadi mohon sealu update untuk website ini.
+                        </p>
+                    </div>
+                    <a href="https://drive.google.com/drive/folders/1HsGdYERJywEQQ-P2hKIydRtGymZnUd9p?usp=drive_link" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 rounded-lg glass-card hover:bg-cyan-500/20 hover:border-cyan-500/40 text-cyan-300 text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                        <i class="fab fa-google-drive"></i>
+                        <span>Akses Dokumen</span>
+                    </a>
+                </div>
+
+                <!-- Document Card 2 -->
+                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-xl">
+                                <i class="fas fa-folder-open"></i>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md bg-white/5 text-slate-400 text-xs font-mono">Drive link</span>
+                        </div>
+                        <h5 class="text-lg font-heading font-bold text-white mb-2">Arsip drive Kelas 2 WUSTHA (2022/2023)</h5>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                            Arsipan ini belum di dapatkan, jadi mohon sealu update untuk website ini.
+                        </p>
+                    </div>
+                    <a href="https://drive.google.com/drive/folders/1wTOhd10RrueWjXZOmQStQqEZQR2H-mgv?usp=drive_link" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 rounded-lg glass-card hover:bg-cyan-500/20 hover:border-cyan-500/40 text-cyan-300 text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                        <i class="fab fa-google-drive"></i>
+                        <span>Akses Dokumen</span>
+                    </a>
+                </div>
+
+                <!-- Document Card 3 -->
+                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-xl">
+                                <i class="fas fa-folder-open"></i>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md bg-white/5 text-slate-400 text-xs font-mono">Drive Link</span>
+                        </div>
+                        <h5 class="text-lg font-heading font-bold text-white mb-2">Arsip Drive Kelas 3 WUSTHA (2023/2024)</h5>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                            Materi paparan program strategis, rencana aksi tahunan, dan arah pengembangan lembaga.
+                        </p>
+                    </div>
+                    <a href="https://drive.google.com/drive/folders/1j0LwExgwHrbdASn7nUo2HTPu-uV8n7Xi?usp=drive_link" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 rounded-lg glass-card hover:bg-cyan-500/20 hover:border-cyan-500/40 text-cyan-300 text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                        <i class="fab fa-google-drive"></i>
+                        <span>Akses Dokumen</span>
+                    </a>
+                </div>
+
+                <!-- Document Card 4 -->
+                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl">
+                                <i class="fas fa-folder-open"></i>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md bg-white/5 text-slate-400 text-xs font-mono">Drive Link</span>
+                        </div>
+                        <h5 class="text-lg font-heading font-bold text-white mb-2">Arsip Drive Kelas 1 ULYA (2024/2025)</h5>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                            Drive masih kosong jadi mohon di tunggu update selanjutnya.
+                        </p>
+                    </div>
+                    <a href="https://drive.google.com/drive/folders/1YiGLgzRZvEl0cv9Mxo_hvNtwBPE2aAR2?usp=drive_link" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 rounded-lg glass-card hover:bg-cyan-500/20 hover:border-cyan-500/40 text-cyan-300 text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                        <i class="fab fa-google-drive"></i>
+                        <span>Akses Dokumen</span>
+                    </a>
+                </div>
+
+                <!-- Document Card 5 -->
+                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl">
+                                <i class="fas fa-folder-open"></i>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md bg-white/5 text-slate-400 text-xs font-mono">Drive Link</span>
+                        </div>
+                        <h5 class="text-lg font-heading font-bold text-white mb-2">Arsip Drive Kelas 2 ULYA (2025/2026)</h5>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                            Drive Belum Di Update Dan Berisikan Arsip Perlombaan Saat Haflah.
+                        </p>
+                    </div>
+                    <a href="https://drive.google.com/drive/folders/1q8ToDk87lWFzqb5xBdvWNKlcd2QgF0BV?usp=drive_link" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 rounded-lg glass-card hover:bg-cyan-500/20 hover:border-cyan-500/40 text-cyan-300 text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                        <i class="fab fa-google-drive"></i>
+                        <span>Akses Dokumen</span>
+                    </a>
+                </div>
+
+                <!-- Document Card 6 -->
+                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-xl">
+                                <i class="fas fa-folder-open"></i>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md bg-white/5 text-slate-400 text-xs font-mono">Drive Link</span>
+                        </div>
+                        <h5 class="text-lg font-heading font-bold text-white mb-2">Arsip drive Kelas 3 ULYA (2026/2027)</h5>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                            Drive Akan Selalu Di Update ketika Ada Event-Event Sampai Hari kelulusan.
+                        </p>
+                    </div>
+                    <a href="https://drive.google.com/drive/folders/1WoEjXw1AWaDA1wO6xiLyGH4ZJ-MbNdWU?usp=drive_link" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 rounded-lg glass-card hover:bg-cyan-500/20 hover:border-cyan-500/40 text-cyan-300 text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                        <i class="fab fa-google-drive"></i>
+                        <span>Akses Folder Media</span>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact & Footer Section -->
+    <footer id="kontak" class="pt-20 pb-10 bg-slate-950 relative z-10 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-white/5">
+                
+                <!-- Col 1: Brand Info -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="flex items-center gap-3">
+                        <img src="LOGO BHASMA PDF.png" alt="Logo" class="w-12 h-12 object-contain">
+                        <span class="font-heading font-bold text-xl text-white">BHASMA<span class="text-cyan-400">47</span></span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-sm">
+                        The 47th generation of the Al Falah Putera Islamic Boarding School, Banjarbaru.
+                    </p>
+                    <div class="flex items-center gap-3 pt-2">
+                        <a href="#" class="w-9 h-9 rounded-lg glass-card flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"><i class="fab fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg glass-card flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"><i class="fab fa-twitter text-sm"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg glass-card flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"><i class="fab fa-instagram text-sm"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg glass-card flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"><i class="fab fa-youtube text-sm"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Navigation Links -->
+                <div class="lg:col-span-3 space-y-4">
+                    <h5 class="text-white font-heading font-semibold text-sm uppercase tracking-wider">Tautan Cepat</h5>
+                    <ul class="space-y-2.5 text-sm text-slate-400">
+                        <li><a href="#beranda" class="hover:text-cyan-400 transition-colors">Beranda Utama</a></li>
+                        <li><a href="#tentang" class="hover:text-cyan-400 transition-colors">Profil & Visi Misi</a></li>
+                        <li><a href="#galeri" class="hover:text-cyan-400 transition-colors">Galeri Dokumentasi</a></li>
+                        <li><a href="#dokumen" class="hover:text-cyan-400 transition-colors">Repositori Google Drive</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Contact Details -->
+                <div class="lg:col-span-4 space-y-4">
+                    <h5 class="text-white font-heading font-semibold text-sm uppercase tracking-wider">Informasi Kontak</h5>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt text-cyan-400 mt-1"></i>
+                            <span>Jl. Jenderal Sudirman No. 128, Gedung Nusantara Lt. 5, Jakarta Selatan</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-cyan-400"></i>
+                            <span>kontak@nexus-institute.id</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-phone text-cyan-400"></i>
+                            <span>+62 (021) 555-8890 / +62 812-3456-7890</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+                <p>&copy; 2026 Bhasma47. Hak Cipta Dilindungi Undang-Undang.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="hover:text-slate-400 transition-colors">Kebijakan Privasi</a>
+                    <a href="#" class="hover:text-slate-400 transition-colors">Syarat & Ketentuan</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX MODAL FOR GALLERY -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-md flex items-center justify-center p-4" onclick="closeLightbox()">
+        <div class="relative max-w-4xl w-full glass-card rounded-2xl p-2" onclick="event.stopPropagation()">
+            <button onclick="closeLightbox()" class="absolute -top-12 right-0 text-white hover:text-cyan-400 text-2xl focus:outline-none">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="lightboxImg" src="" alt="" class="w-full h-auto max-h-[80vh] object-contain rounded-xl">
+            <p id="lightboxCaption" class="text-center text-slate-300 text-sm mt-3 pb-2 font-medium"></p>
+        </div>
+    </div>
+
+    <!-- Interactive JavaScript Logic -->
+    <script>
+        // Mobile Navigation Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            } else {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            }
+        });
+
+        // Close Mobile Menu when clicking menu link
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+
+        // Navbar Scroll Styling Effect
+        const nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-xl', 'py-1');
+            } else {
+                nav.classList.remove('shadow-xl', 'py-1');
+            }
+        });
+
+        // Lightbox Gallery Functions
+        function openLightbox(imageSrc, captionText) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+
+            lightboxImg.src = imageSrc;
+            lightboxCaption.innerText = captionText;
+            lightbox.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close lightbox on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>
