@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri Video Kenangan - Bhasma47 Style</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#0a0d14',
+                        cardbg: '#121824',
+                        accentglow: '#6366f1',
+                        accentpurple: '#a855f7',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0d14;
+            color: #f3f4f6;
+        }
+        .glow-effect {
+            box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.3);
+        }
+        .glow-card:hover {
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
+            border-color: rgba(168, 85, 247, 0.5);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0d14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between bg-darkbg text-slate-100 selection:bg-indigo-500 selection:text-white">
+
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-darkbg/80 border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-500 flex items-center justify-center font-bold text-lg shadow-lg">
+                    B
+                </div>
+                <div>
+                    <span class="font-bold tracking-wider text-white text-lg block">BHASMA<span class="text-indigo-400">47</span></span>
+                    <span class="text-[10px] text-slate-400 tracking-widest uppercase block">Video Memories</span>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#" class="hover:text-indigo-400 transition">Beranda</a>
+                <a href="#galeri" class="hover:text-indigo-400 transition text-indigo-400">Galeri Video</a>
+                <a href="#" class="hover:text-indigo-400 transition">Tentang Kami</a>
+                <a href="#" class="hover:text-indigo-400 transition">Kontak</a>
+            </nav>
+
+            <div>
+                <a href="#galeri" class="px-5 py-2.5 rounded-xl font-medium text-sm text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 shadow-lg glow-effect transition transform active:scale-95">
+                    Mulai Nonton
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative pt-16 pb-12 overflow-hidden text-center px-4">
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+                <div class="w-[500px] h-[500px] bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-full blur-[120px]"></div>
+            </div>
+
+            <div class="max-w-4xl mx-auto relative z-10">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 text-xs font-semibold mb-6">
+                    <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                    Arsip Video Eksklusif 47th Generation
+                </div>
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6">
+                    ARSIP <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">KENANGAN</span> KITA
+                </h1>
+                <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto mb-8 font-light">
+                    Kumpulan momen terbaik, canda tawa, dan dokumentasi berharga yang terekam dalam bingkai video perjalanan angkatan.
+                </p>
+
+                <!-- Stats Cards (Reference style) -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mt-12">
+                    <div class="bg-cardbg border border-slate-800/80 rounded-2xl p-4 text-center">
+                        <div class="text-2xl sm:text-3xl font-bold text-indigo-400">12+</div>
+                        <div class="text-xs text-slate-400 mt-1">Video Kenangan</div>
+                    </div>
+                    <div class="bg-cardbg border border-slate-800/80 rounded-2xl p-4 text-center">
+                        <div class="text-2xl sm:text-3xl font-bold text-purple-400">100%</div>
+                        <div class="text-xs text-slate-400 mt-1">Momen Autentik</div>
+                    </div>
+                    <div class="bg-cardbg border border-slate-800/80 rounded-2xl p-4 text-center">
+                        <div class="text-2xl sm:text-3xl font-bold text-indigo-400">4K</div>
+                        <div class="text-xs text-slate-400 mt-1">Kualitas HD</div>
+                    </div>
+                    <div class="bg-cardbg border border-slate-800/80 rounded-2xl p-4 text-center">
+                        <div class="text-2xl sm:text-3xl font-bold text-purple-400">∞</div>
+                        <div class="text-xs text-slate-400 mt-1">Tanpa Batas</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Grid Section -->
+        <section id="galeri" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">Daftar Video Kenangan</h2>
+                    <p class="text-sm text-slate-400 mt-1">Pilih video di bawah untuk memutar atau mengganti link file MP4 Anda.</p>
+                </div>
+                <div class="text-xs text-indigo-400 font-medium px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20">
+                    Total: <span id="video-count">12</span> Video Tersedia
+                </div>
+            </div>
+
+            <!-- Responsive Video Grid (10+ Videos) -->
+            <div id="video-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Video cards will be populated dynamically or via clean static markup -->
+                <!-- You can easily add more by duplicating the block below -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Player (Opsional untuk Fullscreen View) -->
+    <div id="video-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="bg-cardbg border border-slate-800 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl relative">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-slate-800">
+                <h3 id="modal-title" class="font-semibold text-lg text-white">Judul Video</h3>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-white p-2 rounded-lg hover:bg-slate-800 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-4 bg-black flex justify-center">
+                <video id="modal-video" controls class="w-full max-h-[70vh] rounded-lg focus:outline-none">
+                    <source src="" type="video/mp4">
+                    Browser Anda tidak mendukung tag video.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 bg-darkbg/90 mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
+            <p>&copy; 2026 Bhasma47 Generation. All rights reserved. Dibuat dengan tema gelap modern minimalis.</p>
+        </div>
+    </footer>
+
+    <script>
+        // DATA VIDEO (Anda bisa mengubah atau menambah link MP4 di sini hingga 10 atau lebih)
+        const videoData = [
+            {
+                id: 1,
+                title: "sparing lawan Tajhizi",
+                desc: "skor akhir 6:0 Ih Malu Banget",
+                duration: "00:45",
+                url: "sparing.mp4",
+                thumbnail: "sparing.jpg"
+            },
+            {
+                id: 2,
+                title: "Kegiatan Outbound & Gathering",
+                desc: "Aktivitas luar ruangan penuh tantangan dan tawa.",
+                duration: "05:12",
+                url: "https://www.w3schools.com/html/movie.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=600&auto=format&fit=crop"
+            },
+            {
+                id: 3,
+                title: "Pentas Seni & Kreasi Santri",
+                desc: "Penampilan panggung spektakuler dari berbagai bakat.",
+                duration: "04:30",
+                url: "https://www.w3schools.com/html/mov_bbb.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=600&auto=format&fit=crop"
+            },
+            {
+                id: 4,
+                title: "Kelulusan & Pelepasan Angkatan",
+                desc: "Haru dan air mata kebahagiaan saat hari kelulusan tiba.",
+                duration: "06:15",
+                url: "https://www.w3schools.com/html/movie.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600&auto=format&fit=crop"
+            },
+            {
+                id: 5,
+                title: "Upacara Hari Kemerdekaan",
+                desc: "Kekhidmatan upacara bendera bersama seluruh warga sekolah.",
+                duration: "02:50",
+                url: "https://www.w3schools.com/html/mov_bbb.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?q=80&w=600&auto=format&fit=crop"
+            },
+            {
+                id: 6,
+                title: "Lomba Olahraga Antar Kelas",
+                desc: "Pertandingan seru futsal dan basket penuh sportivitas.",
+                duration: "04:05",
+                url: "https://www.w3schools.com/html/movie.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=600&auto=format&fit=crop"
+            },
+            {
+                id: 7,
+                title: "Bakti Sosial & Pengabdian Masyarakat",
+                desc: "Berbagi kebahagiaan dengan warga sekitar lingkungan asrama.",
+                duration: "03:20",
+                url: "https://www.w3schools.com/html/mov_bbb.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=600&auto=format&fit=crop"
+            },
+            {
+                id: 8,
+                title: "Malam Keakraban Puncak",
+                desc: "Acara api unggun dan refleksi perjalanan selama setahun.",
+                duration: "07:00",
+                url: "https://www.w3schools.com/html/movie.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600&auto=format&fit=crop"
+            },
+            {
+                id: 9,
+                title: "Kunjungan Studi & Wisata",
+                desc: "Eksplorasi tempat edukatif dan rekreasi bersama angkatan.",
+                duration: "05:40",
+                url: "https://www.w3schools.com/html/mov_bbb.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=600&auto=format&fit=crop"
+            },
+            {
+                id: 10,
+                title: "Persiapan Ujian & Belajar Bersama",
+                desc: "Suasana belajar kelompok di gazebo malam hari.",
+                duration: "03:10",
+                url: "https://www.w3schools.com/html/movie.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=600&auto=format&fit=crop"
+            },
+            {
+                id: 11,
+                title: "Dokumentasi Drone Asrama",
+                desc: "Pemandangan udara kompleks asrama dari sudut pandang luas.",
+                duration: "02:30",
+                url: "https://www.w3schools.com/html/mov_bbb.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=600&auto=format&fit=crop"
+            },
+            {
+                id: 12,
+                title: "Pesan & Kesan Angkatan 47",
+                desc: "Kumpulan wawancara dan harapan untuk masa depan.",
+                duration: "08:15",
+                url: "https://www.w3schools.com/html/movie.mp4",
+                thumbnail: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=600&auto=format&fit=crop"
+            }
+        ];
+
+        // Render video cards ke dalam HTML grid
+        function renderVideos() {
+            const gridContainer = document.getElementById('video-grid');
+            document.getElementById('video-count').innerText = videoData.length;
+            
+            gridContainer.innerHTML = videoData.map(item => `
+                <div class="bg-cardbg border border-slate-800/80 rounded-2xl overflow-hidden glow-card transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <!-- Video Player Langsung atau Thumbnail dengan Tombol Play -->
+                        <div class="relative group aspect-video bg-slate-900 overflow-hidden">
+                            <video class="w-full h-full object-cover" poster="${item.thumbnail}" preload="metadata">
+                                <source src="${item.url}" type="video/mp4">
+                                Browser Anda tidak mendukung video.
+                            </video>
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-3">
+                                <button onclick="openModal('${item.url}', '${item.title}')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-xl shadow-lg flex items-center gap-2 transform active:scale-95 transition">
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                    Putar Fullscreen
+                                </button>
+                            </div>
+                            <span class="absolute bottom-3 right-3 px-2 py-1 bg-black/70 backdrop-blur-md text-[10px] font-medium text-white rounded-md">
+                                ${item.duration}
+                            </span>
+                        </div>
+
+                        <!-- Keterangan Video -->
+                        <div class="p-5">
+                            <h3 class="font-bold text-base text-white mb-2 line-clamp-1">${item.title}</h3>
+                            <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">${item.desc}</p>
+                        </div>
+                    </div>
+
+                    <!-- Card Footer / Direct Controls Helper -->
+                    <div class="px-5 pb-5 pt-0 flex items-center justify-between border-t border-slate-800/40 pt-4 mt-2">
+                        <span class="text-[11px] text-indigo-400 font-medium">Video #${item.id}</span>
+                        <button onclick="openModal('${item.url}', '${item.title}')" class="text-xs text-slate-300 hover:text-indigo-400 font-medium flex items-center gap-1 transition">
+                            Tonton Sekarang &rarr;
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Modal Functions
+        function openModal(url, title) {
+            const modal = document.getElementById('video-modal');
+            const modalVideo = document.getElementById('modal-video');
+            const modalTitle = document.getElementById('modal-title');
+
+            modalTitle.innerText = title;
+            modalVideo.src = url;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            modalVideo.play();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('video-modal');
+            const modalVideo = document.getElementById('modal-video');
+
+            modalVideo.pause();
+            modalVideo.src = "";
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        // Inisialisasi saat halaman dimuat
+        window.onload = function() {
+            renderVideos();
+        }
+    </script>
+</body>
+</html>
