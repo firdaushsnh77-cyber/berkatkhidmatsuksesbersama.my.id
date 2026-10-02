@@ -58,7 +58,7 @@
         </div>
     </header>
 
-    <!-- Main Game Container (Dipertinggi/Diperpanjang ke atas & bawah) -->
+    <!-- Main Game Container -->
     <main class="relative w-full max-w-2xl flex-1 flex items-center justify-center my-2 overflow-hidden">
         <div id="game-box" class="relative w-full aspect-[4/3] sm:aspect-[16/9] max-h-[80vh] border-2 sm:border-4 border-zinc-700 rounded-xl overflow-hidden bg-stone-100 shadow-2xl">
             <canvas id="gameCanvas" class="w-full h-full block cursor-pointer"></canvas>
@@ -104,13 +104,17 @@
 
     <script>
         // ==========================================
-        // 0. GAMBAR KARAKTER (PNG SPRITES)
+        // 0. GAMBAR KARAKTER & LOGO (PNG / JPG SPRITES)
         // ==========================================
         const dinoImgStand = new Image();
         dinoImgStand.src = 'dino.png';
 
         const dinoImgDuck = new Image();
         dinoImgDuck.src = 'dino2.png';
+
+        // Logo Bhasma untuk animasi milestone poin
+        const logoImg = new Image();
+        logoImg.src = 'LOGO BHASMA PDF.png'; 
 
         // ==========================================
         // 1. SOUND SYNTHESIZER (Web Audio API)
@@ -210,7 +214,6 @@
         const soundBtn = document.getElementById('sound-btn');
         const soundText = document.getElementById('sound-text');
 
-        // Resolusi diperpanjang ke atas/bawah (Tinggi: 450, Posisi Tanah: 380)
         const GAME_WIDTH = 800;
         const GAME_HEIGHT = 450;
         const GROUND_Y = 380;
@@ -227,6 +230,10 @@
         let obstacles = [];
         let clouds = [];
         let groundOffset = 0;
+
+        // Variabel untuk Efek Animasi Teks & Logo Motivasi
+        let milestoneTimer = 0;
+        let lastMilestoneTriggered = 0;
 
         hiScoreEl.innerText = String(hiScore).padStart(5, '0');
 
@@ -455,12 +462,59 @@
             }
         }
 
+        // Gambar Animasi Logo & Teks Poin Kelipatan
+        function drawMilestoneBanner() {
+            if (milestoneTimer > 0) {
+                milestoneTimer--;
+
+                // Efek Animasi Melayang Perlahan Ke Atas & Transparansi
+                const progress = milestoneTimer / 150; // Durasi 150 frame (~2.5 detik)
+                const alpha = Math.min(1, progress * 2);
+                const offsetY = (150 - milestoneTimer) * 0.2; // Melayang ke atas sedikit
+
+                ctx.save();
+                ctx.globalAlpha = alpha;
+
+                // Tampilkan Logo Bhasma
+                const logoWidth = 70;
+                const logoHeight = 70;
+                const logoX = (GAME_WIDTH - logoWidth) / 2;
+                const logoY = 90 - offsetY;
+
+                if (logoImg.complete && logoImg.naturalWidth !== 0) {
+                    ctx.drawImage(logoImg, logoX, logoY, logoWidth, logoHeight);
+                }
+
+                // Gambar Teks Motivasi Bergaya Retro Pixel
+                ctx.textAlign = 'center';
+                ctx.font = '14px "Press Start 2P"';
+
+                // Animasi Kedip Pixel (Flicker)
+                if (Math.floor(frameCount / 8) % 2 === 0) {
+                    ctx.fillStyle = '#facc15'; // Kuning cerah
+                } else {
+                    ctx.fillStyle = '#ffffff'; // Putih
+                }
+
+                // Efek Bayangan Teks Pixel (Stroke/Shadow)
+                ctx.shadowColor = '#000000';
+                ctx.shadowOffsetX = 3;
+                ctx.shadowOffsetY = 3;
+                ctx.shadowBlur = 0;
+
+                ctx.fillText("SEMANGAT LAGI PANG BUHANMU!", GAME_WIDTH / 2, logoY + logoHeight + 30);
+                ctx.restore();
+            }
+        }
+
         function resetGame() {
             score = 0;
             gameSpeed = 6;
             frameCount = 0;
             obstacles = [];
             clouds = [];
+            milestoneTimer = 0;
+            lastMilestoneTriggered = 0;
             player.width = player.normalWidth;
             player.height = player.normalHeight;
             player.y = GROUND_Y - player.normalHeight;
@@ -496,11 +550,16 @@
                 score += 0.15; 
                 gameSpeed = 6 + Math.floor(score / 100) * 0.75;
 
-                if (Math.floor(score) > 0 && Math.floor(score) % 100 === 0 && frameCount % 6 === 0) {
+                const currentFloorScore = Math.floor(score);
+
+                // Memicu Animasi & Suara setiap kelipatan 100 Poin
+                if (currentFloorScore > 0 && currentFloorScore % 100 === 0 && currentFloorScore !== lastMilestoneTriggered) {
                     audio.playScoreMilestone();
+                    milestoneTimer = 150; // Tampilkan banner selama ~2.5 detik
+                    lastMilestoneTriggered = currentFloorScore;
                 }
 
-                currentScoreEl.innerText = String(Math.floor(score)).padStart(5, '0');
+                currentScoreEl.innerText = String(currentFloorScore).padStart(5, '0');
                 spawnObstacles();
             }
 
@@ -524,6 +583,9 @@
                 }
             });
             obstacles = obstacles.filter(o => !o.markedForDeletion);
+
+            // Render Teks & Logo Motivasi saat Kelipatan Poin
+            drawMilestoneBanner();
 
             requestAnimationFrame(gameLoop);
         }
