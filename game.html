@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full w-full overflow-hidden select-none">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Chrome Dino Jump - Mobile Retro Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        * {
+            font-family: 'Press Start 2P', cursive, monospace;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            touch-action: none;
+        }
+
+        body {
+            background-color: #18181b;
+            color: #535353;
+            overscroll-behavior: none;
+        }
+
+        canvas {
+            image-rendering: pixelated;
+        }
+
+        .arcade-btn {
+            transition: transform 0.05s ease, background-color 0.1s ease;
+            box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.4);
+        }
+        
+        .arcade-btn:active, .arcade-btn.active {
+            transform: translateY(4px);
+            box-shadow: 0 0px 0 0 rgba(0, 0, 0, 0.4);
+        }
+
+        /* Prevent mobile safari bounce */
+        html, body {
+            position: fixed;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="h-full w-full flex flex-col justify-between items-center p-2 sm:p-4 bg-zinc-950 text-zinc-100">
+
+    <!-- Top Bar: Scores & Audio Toggle -->
+    <header class="w-full max-w-2xl flex justify-between items-center pt-2 px-2 text-[10px] sm:text-xs z-10">
+        <button id="sound-btn" class="bg-zinc-800 hover:bg-zinc-700 active:bg-zinc-600 text-zinc-200 px-3 py-2 rounded-lg border border-zinc-700 flex items-center gap-1 shadow">
+            🔊 <span id="sound-text">SOUND ON</span>
+        </button>
+        <div class="flex gap-4 font-bold tracking-wider bg-zinc-900/80 px-3 py-2 rounded-lg border border-zinc-800">
+            <span class="text-zinc-500">HI <span id="hi-score">00000</span></span>
+            <span class="text-yellow-400"><span id="current-score">00000</span></span>
+        </div>
+    </header>
+
+    <!-- Main Game Container -->
+    <main class="relative w-full max-w-2xl flex-1 flex items-center justify-center my-2">
+        <div id="game-box" class="relative w-full aspect-[2/1] sm:aspect-[21/9] max-h-[75vh] border-2 sm:border-4 border-zinc-700 rounded-xl overflow-hidden bg-stone-100 shadow-2xl">
+            <canvas id="gameCanvas" class="w-full h-full block cursor-pointer"></canvas>
+
+            <!-- Overlay: Start Screen -->
+            <div id="start-overlay" class="absolute inset-0 bg-zinc-950/85 flex flex-col items-center justify-center p-4 text-center z-20">
+                <div class="text-3xl sm:text-5xl mb-2 animate-bounce">🦖</div>
+                <h1 class="text-lg sm:text-2xl font-bold mb-3 text-yellow-400 drop-shadow-[0_2px_0_#000]">DINO JUMP MOBILE</h1>
+                <p class="text-[10px] sm:text-xs mb-6 text-emerald-400 animate-pulse">TAP / SWIPE LAYAR UNTUK MULAI</p>
+                
+                <div class="bg-zinc-900/90 p-3 rounded-lg border border-zinc-800 text-[9px] sm:text-[11px] text-zinc-300 space-y-1.5 max-w-xs text-left">
+                    <p class="text-center font-bold text-zinc-400 mb-1">🎮 KONTROL MOBILE:</p>
+                    <p>📱 <b>Tap Layar / Swipe Up:</b> Lompat</p>
+                    <p>👇 <b>Swipe Down / Hold Duck:</b> Menunduk</p>
+                    <p>⌨️ <b>Keyboard:</b> Space / Panah Atas & Bawah</p>
+                </div>
+            </div>
+
+            <!-- Overlay: Game Over Screen -->
+            <div id="gameover-overlay" class="hidden absolute inset-0 bg-zinc-950/90 flex flex-col items-center justify-center p-4 text-center z-20">
+                <h2 class="text-xl sm:text-3xl text-red-500 mb-2 font-black tracking-widest drop-shadow-[0_2px_0_#000]">GAME OVER</h2>
+                <p id="final-score-text" class="text-xs sm:text-sm text-zinc-300 mb-6">SKOR: 00000</p>
+                <button id="restart-btn" class="arcade-btn bg-yellow-400 hover:bg-yellow-300 active:bg-yellow-500 text-zinc-950 font-bold py-3 px-6 rounded-xl text-xs sm:text-sm border-2 border-zinc-900 flex items-center gap-2">
+                    🔄 COBA LAGI
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Touch Controls Footer -->
+    <footer class="w-full max-w-2xl pb-2 sm:pb-4 px-2">
+        <div class="grid grid-cols-2 gap-3 sm:gap-4 h-20 sm:h-24">
+            <button id="btn-duck" class="arcade-btn bg-zinc-800 active:bg-zinc-700 text-zinc-200 font-bold rounded-xl border-2 border-zinc-700 flex flex-col items-center justify-center gap-1 active:scale-95">
+                <span class="text-lg sm:text-2xl">👇</span>
+                <span class="text-[10px] sm:text-xs">NUNDUK (DUCK)</span>
+            </button>
+            <button id="btn-jump" class="arcade-btn bg-emerald-600 active:bg-emerald-500 text-white font-bold rounded-xl border-2 border-emerald-800 flex flex-col items-center justify-center gap-1 active:scale-95">
+                <span class="text-lg sm:text-2xl">🚀</span>
+                <span class="text-[10px] sm:text-xs">LOMPAT (JUMP)</span>
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        // ==========================================
+        // 0. GAMBAR KARAKTER (PNG SPRITES)
+        // ==========================================
+        // Silakan sesuaikan nama/path file gambar PNG yang Anda miliki di sini
+        const dinoImgStand = new Image();
+        dinoImgStand.src = 'dino.png'; // Gambar Dino Berdiri / Berjalan
+
+        const dinoImgDuck = new Image();
+        dinoImgDuck.src = 'dino2.png'; // Gambar Dino Menunduk
+
+        // (Opsional) Jika Anda memiliki 2 frame gambar untuk animasi jalan:
+        // const dinoImgRun1 = new Image(); dinoImgRun1.src = 'dino-run1.png';
+        // const dinoImgRun2 = new Image(); dinoImgRun2.src = 'dino-run2.png';
+
+        // ==========================================
+        // 1. SOUND SYNTHESIZER (Web Audio API)
+        // ==========================================
+        class SoundFX {
+            constructor() {
+                this.ctx = null;
+                this.enabled = true;
+            }
+
+            init() {
+                if (!this.ctx) {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    this.ctx = new AudioContext();
+                }
+                if (this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+
+            playJump() {
+                if (!this.enabled || !this.ctx) return;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(160, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(650, this.ctx.currentTime + 0.12);
+
+                gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.12);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.12);
+            }
+
+            playScoreMilestone() {
+                if (!this.enabled || !this.ctx) return;
+                const now = this.ctx.currentTime;
+                
+                const playNote = (freq, time, duration) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(freq, time);
+                    gain.gain.setValueAtTime(0.08, time);
+                    gain.gain.exponentialRampToValueAtTime(0.01, time + duration);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(time);
+                    osc.stop(time + duration);
+                };
+
+                playNote(587.33, now, 0.08); // D5
+                playNote(880, now + 0.08, 0.15); // A5
+            }
+
+            playHit() {
+                if (!this.enabled || !this.ctx) return;
+                const now = this.ctx.currentTime;
+                
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(130, now);
+                osc.frequency.linearRampToValueAtTime(30, now + 0.25);
+
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                osc.start(now);
+                osc.stop(now + 0.25);
+            }
+        }
+
+        const audio = new SoundFX();
+
+        // ==========================================
+        // 2. GAME ENGINE SETUP
+        // ==========================================
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const startOverlay = document.getElementById('start-overlay');
+        const gameoverOverlay = document.getElementById('gameover-overlay');
+        const finalScoreText = document.getElementById('final-score-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const currentScoreEl = document.getElementById('current-score');
+        const hiScoreEl = document.getElementById('hi-score');
+        const soundBtn = document.getElementById('sound-btn');
+        const soundText = document.getElementById('sound-text');
+
+        // Fixed internal canvas resolution for rendering consistency
+        const GAME_WIDTH = 800;
+        const GAME_HEIGHT = 300;
+        const GROUND_Y = 240;
+
+        canvas.width = GAME_WIDTH;
+        canvas.height = GAME_HEIGHT;
+
+        let gameState = 'START'; // START, PLAYING, GAMEOVER
+        let score = 0;
+        let hiScore = localStorage.getItem('dino_hi_score_mobile') || 0;
+        let gameSpeed = 6;
+        let gravity = 0.65;
+        let frameCount = 0;
+        let obstacles = [];
+        let clouds = [];
+        let groundOffset = 0;
+
+        hiScoreEl.innerText = String(hiScore).padStart(5, '0');
+
+        // ==========================================
+        // 3. PLAYER (DINO) CLASS
+        // ==========================================
+        class Dino {
+            constructor() {
+                this.x = 60;
+                this.width = 44;
+                this.height = 48;
+                this.normalHeight = 48;
+                this.normalWidth = 44;
+                this.duckHeight = 26;
+                this.duckWidth = 55;
+                this.y = GROUND_Y - this.normalHeight;
+                this.vy = 0;
+                this.jumpForce = -12.5;
+                this.isGrounded = true;
+                this.isDucking = false;
+                this.legFrame = 0;
+            }
+
+            jump() {
+                if (this.isGrounded && !this.isDucking) {
+                    this.vy = this.jumpForce;
+                    this.isGrounded = false;
+                    audio.playJump();
+                }
+            }
+
+            duck(ducking) {
+                if (this.isGrounded) {
+                    this.isDucking = ducking;
+                    if (ducking) {
+                        this.height = this.duckHeight;
+                        this.width = this.duckWidth;
+                        this.y = GROUND_Y - this.duckHeight;
+                    } else {
+                        this.height = this.normalHeight;
+                        this.width = this.normalWidth;
+                        this.y = GROUND_Y - this.normalHeight;
+                    }
+                }
+            }
+
+            update() {
+                this.vy += gravity;
+                this.y += this.vy;
+
+                const currentHeight = this.isDucking ? this.duckHeight : this.normalHeight;
+                if (this.y + currentHeight >= GROUND_Y) {
+                    this.y = GROUND_Y - currentHeight;
+                    this.vy = 0;
+                    this.isGrounded = true;
+                }
+
+                if (frameCount % 6 === 0) {
+                    this.legFrame = (this.legFrame + 1) % 2;
+                }
+            }
+
+            draw() {
+                if (this.isDucking) {
+                    // Gambar saat menunduk
+                    if (dinoImgDuck.complete && dinoImgDuck.naturalWidth !== 0) {
+                        ctx.drawImage(dinoImgDuck, this.x, this.y, this.width, this.height);
+                    } else {
+                        // Fallback jika PNG belum siap
+                        ctx.fillStyle = '#3f3f46';
+                        ctx.fillRect(this.x, this.y, this.width, this.height);
+                    }
+                } else {
+                    // Gambar saat berdiri/berjalan/melompat
+                    if (dinoImgStand.complete && dinoImgStand.naturalWidth !== 0) {
+                        ctx.drawImage(dinoImgStand, this.x, this.y, this.width, this.height);
+                    } else {
+                        // Fallback jika PNG belum siap
+                        ctx.fillStyle = '#3f3f46';
+                        ctx.fillRect(this.x, this.y, this.width, this.height);
+                    }
+                }
+            }
+        }
+
+        // ==========================================
+        // 4. OBSTACLES & ENVIRONMENT
+        // ==========================================
+        class Obstacle {
+            constructor(type) {
+                this.type = type;
+                this.markedForDeletion = false;
+
+                if (type === 'cactus_small') {
+                    this.width = 24;
+                    this.height = 42;
+                    this.x = GAME_WIDTH;
+                    this.y = GROUND_Y - this.height;
+                } else if (type === 'cactus_large') {
+                    this.width = 45;
+                    this.height = 54;
+                    this.x = GAME_WIDTH;
+                    this.y = GROUND_Y - this.height;
+                } else if (type === 'bird') {
+                    this.width = 40;
+                    this.height = 30;
+                    this.x = GAME_WIDTH;
+                    const heights = [GROUND_Y - 78, GROUND_Y - 52, GROUND_Y - 32];
+                    this.y = heights[Math.floor(Math.random() * heights.length)];
+                    this.wingFrame = 0;
+                }
+            }
+
+            update() {
+                this.x -= gameSpeed;
+                if (this.x + this.width < 0) {
+                    this.markedForDeletion = true;
+                }
+
+                if (this.type === 'bird' && frameCount % 10 === 0) {
+                    this.wingFrame = (this.wingFrame + 1) % 2;
+                }
+            }
+
+            draw() {
+                ctx.fillStyle = '#3f3f46';
+
+                if (this.type.startsWith('cactus')) {
+                    ctx.fillRect(this.x + this.width * 0.35, this.y, this.width * 0.3, this.height);
+                    ctx.fillRect(this.x, this.y + this.height * 0.25, this.width, this.height * 0.2);
+                    ctx.fillRect(this.x, this.y + this.height * 0.1, this.width * 0.25, this.height * 0.25);
+                    ctx.fillRect(this.x + this.width * 0.75, this.y + 0.15, this.width * 0.25, this.height * 0.3);
+                } else if (this.type === 'bird') {
+                    ctx.fillRect(this.x + 10, this.y + 10, 24, 12); 
+                    ctx.fillRect(this.x, this.y + 6, 10, 8); 
+
+                    if (this.wingFrame === 0) {
+                        ctx.fillRect(this.x + 14, this.y, 10, 10);
+                    } else {
+                        ctx.fillRect(this.x + 14, this.y + 18, 10, 10);
+                    }
+                }
+            }
+        }
+
+        class Cloud {
+            constructor() {
+                this.x = GAME_WIDTH;
+                this.y = Math.random() * 100 + 30;
+                this.width = 46;
+                this.height = 14;
+                this.speed = (Math.random() * 0.5 + 0.5);
+                this.markedForDeletion = false;
+            }
+
+            update() {
+                this.x -= this.speed;
+                if (this.x + this.width < 0) this.markedForDeletion = true;
+            }
+
+            draw() {
+                ctx.fillStyle = '#a1a1aa';
+                ctx.fillRect(this.x + 10, this.y, 26, 6);
+                ctx.fillRect(this.x, this.y + 4, 46, 6);
+                ctx.fillRect(this.x + 6, this.y + 10, 34, 4);
+            }
+        }
+
+        const player = new Dino();
+
+        // ==========================================
+        // 5. COLLISION & LOGIC
+        // ==========================================
+        function checkCollision(rect1, rect2) {
+            const padX = 6;
+            const padY = 4;
+
+            const r1 = {
+                x: rect1.x + padX,
+                y: rect1.y + padY,
+                w: rect1.width - (padX * 2),
+                h: rect1.height - (padY * 2)
+            };
+
+            const r2 = {
+                x: rect2.x + padX,
+                y: rect2.y + padY,
+                w: rect2.width - (padX * 2),
+                h: rect2.height - (padY * 2)
+            };
+
+            return (
+                r1.x < r2.x + r2.w &&
+                r1.x + r1.w > r2.x &&
+                r1.y < r2.y + r2.h &&
+                r1.y + r1.h > r2.y
+            );
+        }
+
+        function spawnObstacles() {
+            if (frameCount % Math.max(40, Math.floor(105 - gameSpeed * 3.2)) === 0) {
+                if (Math.random() < 0.65) {
+                    const type = Math.random() < 0.5 ? 'cactus_small' : 'cactus_large';
+                    obstacles.push(new Obstacle(type));
+                } else if (score > 120) { 
+                    obstacles.push(new Obstacle('bird'));
+                }
+            }
+
+            if (frameCount % 160 === 0 && Math.random() < 0.6) {
+                clouds.push(new Cloud());
+            }
+        }
+
+        function drawGround() {
+            ctx.strokeStyle = '#52525b';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, GROUND_Y);
+            ctx.lineTo(GAME_WIDTH, GROUND_Y);
+            ctx.stroke();
+
+            groundOffset = (groundOffset + gameSpeed) % 20;
+            ctx.fillStyle = '#71717a';
+            for (let i = 0; i < GAME_WIDTH + 20; i += 20) {
+                if ((i + Math.floor(frameCount)) % 50 === 0) {
+                    ctx.fillRect(i - groundOffset, GROUND_Y + 8, 4, 2);
+                    ctx.fillRect(i - groundOffset + 10, GROUND_Y + 16, 2, 2);
+                }
+            }
+        }
+
+        function resetGame() {
+            score = 0;
+            gameSpeed = 6;
+            frameCount = 0;
+            obstacles = [];
+            clouds = [];
+            player.width = player.normalWidth;
+            player.height = player.normalHeight;
+            player.y = GROUND_Y - player.normalHeight;
+            player.isDucking = false;
+            gameState = 'PLAYING';
+
+            startOverlay.classList.add('hidden');
+            gameoverOverlay.classList.add('hidden');
+        }
+
+        function triggerGameOver() {
+            gameState = 'GAMEOVER';
+            audio.playHit();
+
+            if (score > hiScore) {
+                hiScore = Math.floor(score);
+                localStorage.setItem('dino_hi_score_mobile', hiScore);
+                hiScoreEl.innerText = String(hiScore).padStart(5, '0');
+            }
+
+            finalScoreText.innerText = `SKOR AKHIR: ${String(Math.floor(score)).padStart(5, '0')}`;
+            gameoverOverlay.classList.remove('hidden');
+        }
+
+        // ==========================================
+        // 6. MAIN GAME LOOP
+        // ==========================================
+        function gameLoop() {
+            ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+            if (gameState === 'PLAYING') {
+                frameCount++;
+                score += 0.15; 
+                gameSpeed = 6 + Math.floor(score / 100) * 0.75;
+
+                if (Math.floor(score) > 0 && Math.floor(score) % 100 === 0 && frameCount % 6 === 0) {
+                    audio.playScoreMilestone();
+                }
+
+                currentScoreEl.innerText = String(Math.floor(score)).padStart(5, '0');
+                spawnObstacles();
+            }
+
+            clouds.forEach(cloud => {
+                if (gameState === 'PLAYING') cloud.update();
+                cloud.draw();
+            });
+            clouds = clouds.filter(c => !c.markedForDeletion);
+
+            drawGround();
+
+            if (gameState === 'PLAYING') player.update();
+            player.draw();
+
+            obstacles.forEach(obs => {
+                if (gameState === 'PLAYING') obs.update();
+                obs.draw();
+
+                if (gameState === 'PLAYING' && checkCollision(player, obs)) {
+                    triggerGameOver();
+                }
+            });
+            obstacles = obstacles.filter(o => !o.markedForDeletion);
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        // ==========================================
+        // 7. TOUCH, SWIPE & KEYBOARD INPUTS
+        // ==========================================
+        function handleActionStart(action) {
+            audio.init();
+            if (gameState === 'START') {
+                resetGame();
+            } else if (gameState === 'PLAYING') {
+                if (action === 'JUMP') player.jump();
+                if (action === 'DUCK') player.duck(true);
+            }
+        }
+
+        function handleActionEnd(action) {
+            if (action === 'DUCK' && gameState === 'PLAYING') {
+                player.duck(false);
+            }
+        }
+
+        // Keyboard Controls
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'ArrowUp') {
+                e.preventDefault();
+                handleActionStart('JUMP');
+            }
+            if (e.code === 'ArrowDown' || e.code === 'KeyS') {
+                e.preventDefault();
+                handleActionStart('DUCK');
+            }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (e.code === 'ArrowDown' || e.code === 'KeyS') {
+                handleActionEnd('DUCK');
+            }
+        });
+
+        // Swipe Detection Setup
+        let touchStartY = 0;
+        let touchStartX = 0;
+
+        const handleTouchStart = (e) => {
+            touchStartY = e.touches[0].clientY;
+            touchStartX = e.touches[0].clientX;
+        };
+
+        const handleTouchEnd = (e) => {
+            if (!touchStartY || !touchStartX) return;
+
+            const touchEndY = e.changedTouches[0].clientY;
+            const touchEndX = e.changedTouches[0].clientX;
+
+            const diffY = touchEndY - touchStartY;
+            const diffX = touchEndX - touchStartX;
+
+            // Check if vertical swipe was larger than horizontal swipe
+            if (Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 30) {
+                if (diffY < 0) {
+                    // Swipe Up -> Jump
+                    handleActionStart('JUMP');
+                } else {
+                    // Swipe Down -> Duck momentarily
+                    handleActionStart('DUCK');
+                    setTimeout(() => handleActionEnd('DUCK'), 400);
+                }
+            } else if (Math.abs(diffY) <= 30 && Math.abs(diffX) <= 30) {
+                // Tap Anywhere -> Jump
+                handleActionStart('JUMP');
+            }
+
+            touchStartY = 0;
+            touchStartX = 0;
+        };
+
+        // Attach Swipe/Tap to Game Box Canvas Container
+        const gameBox = document.getElementById('game-box');
+        gameBox.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            handleTouchStart(e);
+        }, { passive: false });
+
+        gameBox.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            handleTouchEnd(e);
+        }, { passive: false });
+
+        // On-Screen Virtual Buttons
+        const btnJump = document.getElementById('btn-jump');
+        const btnDuck = document.getElementById('btn-duck');
+
+        btnJump.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            handleActionStart('JUMP');
+        }, { passive: false });
+
+        btnDuck.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            handleActionStart('DUCK');
+            btnDuck.classList.add('active');
+        }, { passive: false });
+
+        btnDuck.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            handleActionEnd('DUCK');
+            btnDuck.classList.remove('active');
+        }, { passive: false });
+
+        // Buttons Click Fallback for Desktop
+        btnJump.addEventListener('mousedown', () => handleActionStart('JUMP'));
+        btnDuck.addEventListener('mousedown', () => handleActionStart('DUCK'));
+        btnDuck.addEventListener('mouseup', () => handleActionEnd('DUCK'));
+
+        restartBtn.addEventListener('click', () => resetGame());
+
+        // Audio Mute Toggle
+        soundBtn.addEventListener('click', () => {
+            audio.enabled = !audio.enabled;
+            soundText.innerText = audio.enabled ? 'SOUND ON' : 'SOUND OFF';
+            soundBtn.classList.toggle('opacity-50', !audio.enabled);
+        });
+
+        // Initialize Game Loop on Load
+        window.onload = () => {
+            requestAnimationFrame(gameLoop);
+        };
+    </script>
+</body>
+</html>
