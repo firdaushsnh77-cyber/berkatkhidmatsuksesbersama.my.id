@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Album Foto Interaktif 3D - 64 Halaman A4</title>
+    <title>Album Foto Full Page 3D - Fixed</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,7 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Caveat:wght@600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -27,32 +27,28 @@
             font-family: 'Playfair Display', serif;
         }
 
-        .font-handwriting {
-            font-family: 'Caveat', cursive;
-        }
-
-        /* Container & Page Aspect Ratio Setup (A4 ratio: 1 : 1.414) */
+        /* Container Pembatas Utama (Mencegah elemen bocor di bawah) */
         .page-flip-container {
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
             margin: auto;
+            overflow: hidden; /* Mengunci animasi agar tidak melayang keluar */
+            padding: 10px;
         }
 
         .page {
-            background-color: #fdfbf7;
-            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.05);
+            background-color: #1a1a1a;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             box-sizing: border-box;
-            border: 1px solid rgba(0,0,0,0.06);
             user-select: none;
         }
 
-        /* Hardcover Page Styling */
+        /* Hardcover Styling */
         .page.--page-cover {
             background-color: #2b1d14;
             color: #f3e5ab;
@@ -69,35 +65,24 @@
             border-radius: 12px 4px 4px 12px;
         }
 
-        /* Realistic Spine Shadow */
+        /* Spine Shadows */
         .page-left {
-            box-shadow: inset -18px 0 24px -10px rgba(0, 0, 0, 0.18), inset 0 0 15px rgba(0,0,0,0.03);
+            box-shadow: inset -18px 0 24px -10px rgba(0, 0, 0, 0.3);
             border-radius: 4px 0 0 4px;
         }
 
         .page-right {
-            box-shadow: inset 18px 0 24px -10px rgba(0, 0, 0, 0.18), inset 0 0 15px rgba(0,0,0,0.03);
+            box-shadow: inset 18px 0 24px -10px rgba(0, 0, 0, 0.3);
             border-radius: 0 4px 4px 0;
         }
 
-        /* Paper Texture Gradient */
-        .paper-texture {
-            background-image: radial-gradient(#d3c7b2 0.5px, transparent 0.5px), radial-gradient(#d3c7b2 0.5px, #fdfbf7 0.5px);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
+        .spine-shadow-left {
+            background: linear-gradient(to left, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 100%);
+        }
+        .spine-shadow-right {
+            background: linear-gradient(to right, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 100%);
         }
 
-        /* Photo Frame Shadow */
-        .photo-card {
-            box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.1), 0 2px 6px -2px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .photo-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Table Surface Backgrounds */
         .bg-wood {
             background: radial-gradient(circle, rgba(38,26,18,0.85) 0%, rgba(18,12,8,0.98) 100%), 
                         repeating-linear-gradient(45deg, #1f140e 0px, #1f140e 2px, #261a12 2px, #261a12 4px);
@@ -106,56 +91,49 @@
 </head>
 <body class="bg-wood text-slate-100 min-h-screen flex flex-col justify-between select-none">
 
-    <!-- Top Navigation / Header Toolbar -->
+    <!-- Header Toolbar -->
     <header class="w-full bg-black/40 backdrop-blur-md border-b border-white/10 px-4 py-3 z-30 flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-3">
             <div class="p-2 bg-amber-600/20 text-amber-500 rounded-lg border border-amber-500/30">
-                <i class="fa-solid fa-book-bookmark text-xl"></i>
+                <i class="fa-solid fa-image text-xl"></i>
             </div>
             <div>
-                <h1 class="text-base font-semibold text-amber-100 leading-tight font-serif-title">Album Kenangan Interaktif (64 Halaman)</h1>
-                <p class="text-xs text-slate-400">Ukuran A4 (21 x 29.7 cm) • 32 Lembar Flipbook 3D Realistis</p>
+                <h1 class="text-base font-semibold text-amber-100 leading-tight font-serif-title">Album Foto Full-Bleed A4 (64 Halaman)</h1>
+                <p class="text-xs text-slate-400">1 Foto Penuh Per Halaman • Mode 2 Halaman Konsisten</p>
             </div>
         </div>
 
         <div class="flex items-center gap-2 flex-wrap">
-            <!-- Audio Toggle -->
-            <button id="btn-audio" onclick="toggleAudio()" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-medium rounded-lg backdrop-blur border border-white/10 transition flex items-center gap-2" title="Suara Pembalik Halaman">
+            <button id="btn-audio" onclick="toggleAudio()" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-medium rounded-lg backdrop-blur border border-white/10 transition flex items-center gap-2">
                 <i id="icon-audio" class="fa-solid fa-volume-high text-amber-400"></i>
                 <span id="label-audio" class="hidden sm:inline">Suara: ON</span>
             </button>
 
-            <!-- Fullscreen Button -->
-            <button onclick="toggleFullscreen()" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-medium rounded-lg backdrop-blur border border-white/10 transition flex items-center gap-2" title="Layar Penuh">
+            <button onclick="toggleFullscreen()" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-medium rounded-lg backdrop-blur border border-white/10 transition flex items-center gap-2">
                 <i id="icon-fullscreen" class="fa-solid fa-expand"></i>
                 <span class="hidden sm:inline">Fullscreen</span>
             </button>
         </div>
     </header>
 
-    <!-- Main Interactive Album Canvas Workspace -->
+    <!-- Main Workspace -->
     <main class="flex-1 flex items-center justify-center relative p-4 overflow-hidden min-h-[580px]">
-        
-        <!-- Zoom Wrapper Container -->
-        <div id="zoom-wrapper" class="transition-transform duration-300 transform scale-100 flex items-center justify-center">
+        <div id="zoom-wrapper" class="transition-transform duration-300 transform scale-100 flex items-center justify-center overflow-hidden">
             <div id="flipbook-container" class="page-flip-container shadow-2xl">
-                <!-- 64 Halaman akan dirender otomatis dari Konfigurasi Script JS -->
+                <!-- Halaman dirender otomatis oleh JS -->
             </div>
         </div>
 
-        <!-- Floating Quick Hint -->
-        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10 text-xs text-slate-300 pointer-events-none hidden md:flex items-center gap-2 shadow-lg">
+        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10 text-xs text-slate-300 pointer-events-none hidden md:flex items-center gap-2 shadow-lg z-20">
             <i class="fa-solid fa-hand-pointer text-amber-400 animate-pulse"></i>
-            <span>Klik sudut halaman atau geser (drag) untuk membalik kertas</span>
+            <span>Klik sudut halaman atau geser untuk membalik</span>
         </div>
     </main>
 
-    <!-- Bottom Toolbar Controls -->
+    <!-- Footer Controls -->
     <footer class="w-full bg-black/50 backdrop-blur-md border-t border-white/10 px-4 py-3 z-30 flex flex-wrap items-center justify-between gap-4">
-        
-        <!-- Navigation & Direct Jump Controls -->
         <div class="flex items-center gap-2 mx-auto sm:mx-0 flex-wrap">
-            <button onclick="pageFlip.turnToFirstPage()" class="p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition" title="Halaman Pertama (1)">
+            <button onclick="pageFlip.turnToFirstPage()" class="p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition" title="Sampul Depan">
                 <i class="fa-solid fa-backward-step"></i>
             </button>
             <button onclick="pageFlip.flipPrev()" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-medium rounded-lg transition flex items-center gap-1">
@@ -163,7 +141,6 @@
                 <span class="hidden sm:inline">Sebelumnya</span>
             </button>
             
-            <!-- Direct Page Jump Input -->
             <div class="flex items-center gap-1 px-3 py-1 bg-black/40 rounded-lg border border-white/10 text-xs font-mono text-amber-300">
                 <span>Hal</span>
                 <input type="number" id="jump-page-input" min="1" max="64" value="1" onchange="jumpToPage(this.value)" class="w-10 bg-slate-900 border border-slate-700 text-amber-300 text-center rounded text-xs py-0.5 px-1 focus:outline-none focus:border-amber-500">
@@ -174,146 +151,117 @@
                 <span class="hidden sm:inline">Selanjutnya</span>
                 <i class="fa-solid fa-chevron-right"></i>
             </button>
-            <button onclick="pageFlip.turnToLastPage()" class="p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition" title="Halaman Terakhir (64)">
+            <button onclick="pageFlip.turnToLastPage()" class="p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition" title="Sampul Belakang">
                 <i class="fa-solid fa-forward-step"></i>
             </button>
         </div>
 
-        <!-- Zoom Controls -->
         <div class="flex items-center gap-2 mx-auto sm:mx-0">
             <span class="text-xs text-slate-400">Zoom:</span>
-            <button onclick="changeZoom(-0.1)" class="p-1.5 bg-white/10 hover:bg-white/20 text-slate-200 rounded-lg text-xs transition" title="Zoom Out">
+            <button onclick="changeZoom(-0.1)" class="p-1.5 bg-white/10 hover:bg-white/20 text-slate-200 rounded-lg text-xs transition">
                 <i class="fa-solid fa-minus"></i>
             </button>
             <span id="zoom-level-text" class="text-xs font-mono text-slate-300 min-w-[40px] text-center">100%</span>
-            <button onclick="changeZoom(0.1)" class="p-1.5 bg-white/10 hover:bg-white/20 text-slate-200 rounded-lg text-xs transition" title="Zoom In">
+            <button onclick="changeZoom(0.1)" class="p-1.5 bg-white/10 hover:bg-white/20 text-slate-200 rounded-lg text-xs transition">
                 <i class="fa-solid fa-plus"></i>
             </button>
-            <button onclick="resetZoom()" class="p-1.5 bg-white/10 hover:bg-white/20 text-slate-400 hover:text-slate-200 rounded-lg text-xs transition" title="Reset Zoom">
+            <button onclick="resetZoom()" class="p-1.5 bg-white/10 hover:bg-white/20 text-slate-400 hover:text-slate-200 rounded-lg text-xs transition">
                 <i class="fa-solid fa-rotate-left"></i>
             </button>
         </div>
     </footer>
 
     <script>
-        /* ==========================================================================
-           KONFIGURASI FOTO & ALBUM (EDIT FOTO ANDA DI SINI)
-           ========================================================================== */
+        const DAFTAR_HALAMAN = Array.from({ length: 62 }, (_, i) => ({
+            halaman: i + 2,
+            foto: `https://picsum.photos/seed/full_page_${i + 2}/800/1131`
+        }));
 
-        // Dafar URL Foto untuk Halaman 2 sampai Halaman 63 (Total 62 Foto)
-        // Silakan ganti link/URL di dalam array ini dengan URL foto Anda (bisa link internet atau file lokal seperti "gambar1.jpg").
-        const PHOTO_URLS = [
-            "https://picsum.photos/seed/album_page_2/800/600", // Foto Halaman 2
-            "https://picsum.photos/seed/album_page_3/800/600", // Foto Halaman 3
-            "https://picsum.photos/seed/album_page_4/800/600", // Foto Halaman 4
-            "https://picsum.photos/seed/album_page_5/800/600", // Foto Halaman 5
-            "https://picsum.photos/seed/album_page_6/800/600", // Foto Halaman 6
-            "https://picsum.photos/seed/album_page_7/800/600",
-            "https://picsum.photos/seed/album_page_8/800/600",
-            "https://picsum.photos/seed/album_page_9/800/600",
-            "https://picsum.photos/seed/album_page_10/800/600",
-            "https://picsum.photos/seed/album_page_11/800/600",
-            "https://picsum.photos/seed/album_page_12/800/600",
-            "https://picsum.photos/seed/album_page_13/800/600",
-            "https://picsum.photos/seed/album_page_14/800/600",
-            "https://picsum.photos/seed/album_page_15/800/600",
-            "https://picsum.photos/seed/album_page_16/800/600",
-            "https://picsum.photos/seed/album_page_17/800/600",
-            "https://picsum.photos/seed/album_page_18/800/600",
-            "https://picsum.photos/seed/album_page_19/800/600",
-            "https://picsum.photos/seed/album_page_20/800/600",
-            "https://picsum.photos/seed/album_page_21/800/600",
-            "https://picsum.photos/seed/album_page_22/800/600",
-            "https://picsum.photos/seed/album_page_23/800/600",
-            "https://picsum.photos/seed/album_page_24/800/600",
-            "https://picsum.photos/seed/album_page_25/800/600",
-            "https://picsum.photos/seed/album_page_26/800/600",
-            "https://picsum.photos/seed/album_page_27/800/600",
-            "https://picsum.photos/seed/album_page_28/800/600",
-            "https://picsum.photos/seed/album_page_29/800/600",
-            "https://picsum.photos/seed/album_page_30/800/600",
-            "https://picsum.photos/seed/album_page_31/800/600",
-            "https://picsum.photos/seed/album_page_32/800/600",
-            "https://picsum.photos/seed/album_page_33/800/600",
-            "https://picsum.photos/seed/album_page_34/800/600",
-            "https://picsum.photos/seed/album_page_35/800/600",
-            "https://picsum.photos/seed/album_page_36/800/600",
-            "https://picsum.photos/seed/album_page_37/800/600",
-            "https://picsum.photos/seed/album_page_38/800/600",
-            "https://picsum.photos/seed/album_page_39/800/600",
-            "https://picsum.photos/seed/album_page_40/800/600",
-            "https://picsum.photos/seed/album_page_41/800/600",
-            "https://picsum.photos/seed/album_page_42/800/600",
-            "https://picsum.photos/seed/album_page_43/800/600",
-            "https://picsum.photos/seed/album_page_44/800/600",
-            "https://picsum.photos/seed/album_page_45/800/600",
-            "https://picsum.photos/seed/album_page_46/800/600",
-            "https://picsum.photos/seed/album_page_47/800/600",
-            "https://picsum.photos/seed/album_page_48/800/600",
-            "https://picsum.photos/seed/album_page_49/800/600",
-            "https://picsum.photos/seed/album_page_50/800/600",
-            "https://picsum.photos/seed/album_page_51/800/600",
-            "https://picsum.photos/seed/album_page_52/800/600",
-            "https://picsum.photos/seed/album_page_53/800/600",
-            "https://picsum.photos/seed/album_page_54/800/600",
-            "https://picsum.photos/seed/album_page_55/800/600",
-            "https://picsum.photos/seed/album_page_56/800/600",
-            "https://picsum.photos/seed/album_page_57/800/600",
-            "https://picsum.photos/seed/album_page_58/800/600",
-            "https://picsum.photos/seed/album_page_59/800/600",
-            "https://picsum.photos/seed/album_page_60/800/600",
-            "https://picsum.photos/seed/album_page_61/800/600",
-            "https://picsum.photos/seed/album_page_62/800/600",
-            "https://picsum.photos/seed/album_page_63/800/600"  // Foto Halaman 63
-        ];
+        const SAMPUL_DEPAN = {
+            judul: "ALBUM FOTO KENANGAN",
+            subJudul: "Koleksi Momen Spesial 64 Halaman",
+            tahun: "2024 - 2026"
+        };
 
-        // Struktur Data Lengkap Seluruh 64 Halaman
-        const albumPages = [
-            // Halaman 1: Sampul Depan
-            {
-                type: 'cover-front',
-                title: 'ALBUM KENANGAN 64 HALAMAN',
-                subtitle: 'Koleksi Istimewa Momen Berharga',
-                date: '2024 - 2026'
-            },
+        const SAMPUL_BELAKANG = {
+            judul: "TERIMA KASIH",
+            subJudul: "Akhir dari Album Foto"
+        };
 
-            // Halaman 2 sampai 63 (Diisi Otomatis Menggunakan PHOTO_URLS di Atas)
-            ...PHOTO_URLS.map((url, i) => ({
-                type: 'content',
-                layout: 'single', // Pilihan tata letak: 'single', 'double', 'quad', atau 'text-only'
-                title: `Momen Hari Ke-${i + 1}`,
-                photos: [
-                    {
-                        url: url,
-                        caption: `Foto ke-${i + 1} kenangan terindah.`
-                    }
-                ]
-            })),
-
-            // Halaman 64: Sampul Belakang
-            {
-                type: 'cover-back',
-                title: 'AKHIR ALBUM',
-                subtitle: 'Terima Kasih Telah Membuka Kenangan Ini'
-            }
-        ];
-
-        const TOTAL_PAGES = albumPages.length; // Total 64 Halaman
-
+        const TOTAL_PAGES = 64;
         let pageFlip = null;
         let isAudioMuted = false;
         let currentZoom = 1;
         let audioCtx = null;
 
-        /* ==========================================================================
-           REALISTIC AUDIO SYNTHESIZER (Efek Suara Kertas)
-           ========================================================================== */
+        function renderPagesToDOM() {
+            const container = document.getElementById('flipbook-container');
+            container.innerHTML = '';
+
+            const pageCoverFront = document.createElement('div');
+            pageCoverFront.className = 'page --page-cover --page-cover-front page-right';
+            pageCoverFront.innerHTML = `
+                <div class="h-full flex flex-col justify-between p-8 text-center border-4 border-amber-600/30 rounded-lg m-2 bg-gradient-to-br from-amber-950/40 to-black/60">
+                    <div class="mt-8">
+                        <i class="fa-solid fa-crown text-amber-400 text-3xl mb-4"></i>
+                        <h1 class="text-2xl font-bold font-serif-title tracking-wider text-amber-200 uppercase leading-snug">${SAMPUL_DEPAN.judul}</h1>
+                        <div class="w-16 h-0.5 bg-amber-500/50 mx-auto my-3"></div>
+                        <p class="text-xs text-amber-300/80 italic font-serif">${SAMPUL_DEPAN.subJudul}</p>
+                    </div>
+                    <div class="my-auto py-8">
+                        <div class="w-24 h-24 mx-auto rounded-full border-2 border-amber-500/40 p-1 flex items-center justify-center">
+                            <i class="fa-solid fa-images text-amber-400 text-4xl"></i>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <span class="px-3 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[11px] font-mono rounded-full">Edisi Full Page A4</span>
+                        <p class="text-[10px] font-mono text-amber-400/60 mt-2">${SAMPUL_DEPAN.tahun}</p>
+                    </div>
+                </div>
+            `;
+            container.appendChild(pageCoverFront);
+
+            DAFTAR_HALAMAN.forEach((item) => {
+                const pageNum = item.halaman;
+                const isEven = pageNum % 2 === 0;
+                const pageEl = document.createElement('div');
+                
+                pageEl.className = `page ${isEven ? 'page-left' : 'page-right'} relative`;
+                pageEl.innerHTML = `
+                    <div class="w-full h-full relative overflow-hidden bg-neutral-900">
+                        <img src="${item.foto}" 
+                             alt="Halaman ${pageNum}" 
+                             class="w-full h-full object-cover pointer-events-none" 
+                             onerror="this.src='https://placehold.co/800x1131/222/666?text=Foto+Halaman+${pageNum}'">
+                        
+                        <div class="absolute inset-y-0 ${isEven ? 'right-0 w-8 spine-shadow-left' : 'left-0 w-8 spine-shadow-right'} pointer-events-none"></div>
+
+                        <div class="absolute bottom-3 ${isEven ? 'left-3' : 'right-3'} bg-black/50 text-white/80 backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-mono pointer-events-none border border-white/10">
+                            ${pageNum}
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(pageEl);
+            });
+
+            const pageCoverBack = document.createElement('div');
+            pageCoverBack.className = 'page --page-cover --page-cover-back page-left';
+            pageCoverBack.innerHTML = `
+                <div class="h-full flex flex-col justify-center items-center p-8 text-center border-4 border-amber-600/30 rounded-lg m-2 bg-gradient-to-br from-black/60 to-amber-950/40">
+                    <i class="fa-solid fa-heart text-amber-500 text-3xl mb-3"></i>
+                    <h2 class="text-xl font-bold font-serif-title text-amber-200">${SAMPUL_BELAKANG.judul}</h2>
+                    <p class="text-xs text-amber-300/80 mt-2 italic">${SAMPUL_BELAKANG.subJudul}</p>
+                    <p class="text-[10px] font-mono text-amber-500/40 mt-8">Halaman ${TOTAL_PAGES} dari ${TOTAL_PAGES}</p>
+                </div>
+            `;
+            container.appendChild(pageCoverBack);
+        }
+
         function initAudio() {
             if (!audioCtx) {
                 const AudioContext = window.AudioContext || window.webkitAudioContext;
-                if (AudioContext) {
-                    audioCtx = new AudioContext();
-                }
+                if (AudioContext) audioCtx = new AudioContext();
             }
         }
 
@@ -322,10 +270,7 @@
             try {
                 initAudio();
                 if (!audioCtx) return;
-
-                if (audioCtx.state === 'suspended') {
-                    audioCtx.resume();
-                }
+                if (audioCtx.state === 'suspended') audioCtx.resume();
 
                 const bufferSize = audioCtx.sampleRate * 0.16;
                 const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
@@ -353,9 +298,7 @@
                 gain.connect(audioCtx.destination);
 
                 noise.start();
-            } catch (e) {
-                console.log('Audio Autoplay Restriction', e);
-            }
+            } catch (e) {}
         }
 
         function toggleAudio() {
@@ -373,179 +316,52 @@
             }
         }
 
-        /* ==========================================================================
-           RENDER BENTUK TAMPILAN HALAMAN PADA DOM
-           ========================================================================== */
-        function renderPagesToDOM() {
-            const container = document.getElementById('flipbook-container');
-            container.innerHTML = '';
-
-            albumPages.forEach((page, index) => {
-                const pageNum = index + 1;
-                const pageEl = document.createElement('div');
-                pageEl.className = 'page paper-texture';
-
-                // Halaman 1: Cover Front
-                if (page.type === 'cover-front') {
-                    pageEl.classList.add('--page-cover', '--page-cover-front', 'page-right');
-                    pageEl.innerHTML = `
-                        <div class="h-full flex flex-col justify-between p-8 text-center border-4 border-amber-600/30 rounded-lg m-2 bg-gradient-to-br from-amber-950/40 to-black/60">
-                            <div class="mt-8">
-                                <i class="fa-solid fa-crown text-amber-400 text-3xl mb-4"></i>
-                                <h1 class="text-2xl font-bold font-serif-title tracking-wider text-amber-200 uppercase leading-snug">${page.title}</h1>
-                                <div class="w-16 h-0.5 bg-amber-500/50 mx-auto my-3"></div>
-                                <p class="text-xs text-amber-300/80 italic font-serif">${page.subtitle || ''}</p>
-                            </div>
-                            <div class="my-auto py-8">
-                                <div class="w-24 h-24 mx-auto rounded-full border-2 border-amber-500/40 p-1 flex items-center justify-center">
-                                    <i class="fa-solid fa-book-open text-amber-400 text-4xl"></i>
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <span class="px-3 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[11px] font-mono rounded-full">Edisi Lengkap 64 Halaman</span>
-                                <p class="text-[10px] font-mono text-amber-400/60 mt-2">${page.date || ''}</p>
-                            </div>
-                        </div>
-                    `;
-                } 
-                // Halaman 64: Cover Back
-                else if (page.type === 'cover-back') {
-                    pageEl.classList.add('--page-cover', '--page-cover-back', 'page-left');
-                    pageEl.innerHTML = `
-                        <div class="h-full flex flex-col justify-center items-center p-8 text-center border-4 border-amber-600/30 rounded-lg m-2 bg-gradient-to-br from-black/60 to-amber-950/40">
-                            <i class="fa-solid fa-heart text-amber-500 text-3xl mb-3"></i>
-                            <h2 class="text-xl font-bold font-serif-title text-amber-200">${page.title}</h2>
-                            <p class="text-xs text-amber-300/80 mt-2 italic">${page.subtitle || ''}</p>
-                            <p class="text-[10px] font-mono text-amber-500/40 mt-8">Halaman ${TOTAL_PAGES} dari ${TOTAL_PAGES}</p>
-                        </div>
-                    `;
-                } 
-                // Halaman Isi Foto (Halaman 2 - 63)
-                else {
-                    const isEven = pageNum % 2 === 0;
-                    pageEl.classList.add(isEven ? 'page-left' : 'page-right');
-
-                    let photoContentHtml = '';
-
-                    if (page.layout === 'text-only') {
-                        photoContentHtml = `
-                            <div class="flex-1 flex flex-col justify-center items-center my-auto p-6 text-center">
-                                <i class="fa-solid fa-quote-left text-amber-800/20 text-4xl mb-3"></i>
-                                <p class="font-handwriting text-slate-800 text-xl leading-relaxed">${page.photos[0]?.caption || 'Catatan kenangan indah...'}</p>
-                            </div>
-                        `;
-                    } else if (page.layout === 'double') {
-                        photoContentHtml = `
-                            <div class="flex-1 flex flex-col justify-center gap-3 my-auto">
-                                ${ (page.photos || []).slice(0, 2).map(p => `
-                                    <div class="bg-white p-2 rounded-lg photo-card border border-slate-200">
-                                        <div class="overflow-hidden rounded bg-slate-100 aspect-[16/9]">
-                                            <img src="${p.url}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/eee/999?text=Error+Foto'">
-                                        </div>
-                                        ${p.caption ? `<p class="text-center font-handwriting text-slate-700 text-xs mt-1 truncate">${p.caption}</p>` : ''}
-                                    </div>
-                                `).join('')}
-                            </div>
-                        `;
-                    } else if (page.layout === 'quad') {
-                        photoContentHtml = `
-                            <div class="flex-1 grid grid-cols-2 gap-2 my-auto">
-                                ${ (page.photos || []).slice(0, 4).map(p => `
-                                    <div class="bg-white p-1.5 rounded photo-card border border-slate-200 flex flex-col justify-between">
-                                        <div class="overflow-hidden rounded bg-slate-100 aspect-square">
-                                            <img src="${p.url}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x400/eee/999?text=Error'">
-                                        </div>
-                                        ${p.caption ? `<p class="text-center font-handwriting text-slate-700 text-[10px] mt-0.5 truncate">${p.caption}</p>` : ''}
-                                    </div>
-                                `).join('')}
-                            </div>
-                        `;
-                    } else { // 'single' Layout 1 Foto Utama
-                        const p = page.photos[0] || {};
-                        photoContentHtml = `
-                            <div class="flex-1 flex flex-col justify-center my-auto">
-                                <div class="bg-white p-3 rounded-lg photo-card border border-slate-200">
-                                    <div class="overflow-hidden rounded border border-slate-100 bg-slate-100 aspect-[4/3]">
-                                        <img src="${p.url || 'https://placehold.co/800x600/eee/999?text=Kosong'}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/800x600/eee/999?text=Error+Foto'">
-                                    </div>
-                                    ${p.caption ? `<p class="text-center font-handwriting text-slate-700 text-base mt-2 px-2">${p.caption}</p>` : ''}
-                                </div>
-                            </div>
-                        `;
-                    }
-
-                    pageEl.innerHTML = `
-                        <div class="h-full flex flex-col p-6 justify-between">
-                            <div class="border-b border-slate-200/80 pb-1.5 mb-2 flex justify-between items-center">
-                                <h3 class="font-serif-title text-slate-800 font-semibold text-xs tracking-wide truncate">${page.title || 'Momen Bagus'}</h3>
-                                <i class="fa-solid fa-leaf text-amber-700/30 text-[10px]"></i>
-                            </div>
-
-                            ${photoContentHtml}
-
-                            <div class="pt-2 border-t border-slate-200/60 flex justify-between items-center text-[10px] text-slate-400 font-mono">
-                                <span>Album A4</span>
-                                <span>-${pageNum}-</span>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                container.appendChild(pageEl);
-            });
-        }
-
-        /* ==========================================================================
-           INITIALIZATION LIB PAGE FLIP 3D
-           ========================================================================== */
         function initPageFlip() {
-            if (pageFlip) {
-                pageFlip.destroy();
-            }
+            if (pageFlip) pageFlip.destroy();
 
             renderPagesToDOM();
 
             const windowWidth = window.innerWidth;
-            let width = 380;
-            let height = 537;
+            let width = 360;
+            let height = 508;
 
             if (windowWidth < 500) {
-                width = 270;
-                height = 381;
+                width = 250;
+                height = 353;
             } else if (windowWidth < 768) {
-                width = 320;
-                height = 452;
+                width = 300;
+                height = 424;
             } else if (windowWidth > 1400) {
-                width = 430;
-                height = 608;
+                width = 420;
+                height = 594;
             }
 
+            /* Mengunci mode landscape dan penangan ukuran */
             pageFlip = new St.PageFlip(document.getElementById('flipbook-container'), {
                 width: width,
                 height: height,
                 size: "fixed",
-                minWidth: 250,
+                minWidth: 200,
                 maxWidth: 500,
-                minHeight: 350,
+                minHeight: 300,
                 maxHeight: 700,
                 drawShadow: true,
                 showCover: true,
-                maxAngle: 30,
                 useMouseEvents: true,
-                flippingTime: 700
+                flippingTime: 700,
+                mode: "landscape", /* Kunci mode 2 halaman konsisten */
+                clickEventForward: true
             });
 
             pageFlip.loadFromHTML(document.querySelectorAll('.page'));
 
-            pageFlip.on('flip', (e) => {
+            pageFlip.on('flip', () => {
                 playPaperTurnSound();
                 updatePageNumberDisplay();
             });
 
             pageFlip.on('changeState', (e) => {
-                if (e.data === 'flipping') {
-                    initAudio();
-                }
+                if (e.data === 'flipping') initAudio();
             });
 
             updatePageNumberDisplay();
@@ -561,14 +377,9 @@
             let pageNum = parseInt(val);
             if (isNaN(pageNum)) return;
             pageNum = Math.max(1, Math.min(TOTAL_PAGES, pageNum));
-            if (pageFlip) {
-                pageFlip.turnToPage(pageNum - 1);
-            }
+            if (pageFlip) pageFlip.turnToPage(pageNum - 1);
         }
 
-        /* ==========================================================================
-           ZOOM & FULLSCREEN CONTROLS
-           ========================================================================== */
         function changeZoom(delta) {
             currentZoom = Math.max(0.6, Math.min(1.5, currentZoom + delta));
             applyZoom();
@@ -580,25 +391,21 @@
         }
 
         function applyZoom() {
-            const wrapper = document.getElementById('zoom-wrapper');
-            wrapper.style.transform = `scale(${currentZoom})`;
+            document.getElementById('zoom-wrapper').style.transform = `scale(${currentZoom})`;
             document.getElementById('zoom-level-text').innerText = `${Math.round(currentZoom * 100)}%`;
         }
 
         function toggleFullscreen() {
             const icon = document.getElementById('icon-fullscreen');
             if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(err => console.log(err));
+                document.documentElement.requestFullscreen().catch(() => {});
                 icon.className = 'fa-solid fa-compress';
             } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
+                if (document.exitFullscreen) document.exitFullscreen();
                 icon.className = 'fa-solid fa-expand';
             }
         }
 
-        /* Window Event Listeners */
         window.addEventListener('resize', () => {
             if (pageFlip) initPageFlip();
         });
