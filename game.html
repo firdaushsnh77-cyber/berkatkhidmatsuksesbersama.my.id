@@ -49,7 +49,7 @@
 
     <!-- Top Bar: Scores & Audio Toggle -->
     <header class="w-full max-w-2xl flex justify-between items-center pt-2 px-2 text-[10px] sm:text-xs z-10">
-        <button id="sound-btn" class="bg-zinc-800 hover:bg-zinc-700 active:bg-zinc-600 text-zinc-200 px-3 py-2 rounded-lg border border-zinc-700 flex items-center gap-1 shadow">
+        <button id="sound-btn" class="bg-zinc-800 hover:bg-zinc-700 active:bg-zinc-600 text-zinc-200 px-3 py-2 rounded-lg border border-zinc-700 flex items-center gap-1 shadow cursor-pointer">
             🔊 <span id="sound-text">SOUND ON</span>
         </button>
         <div class="flex gap-4 font-bold tracking-wider bg-zinc-900/80 px-3 py-2 rounded-lg border border-zinc-800">
@@ -78,10 +78,10 @@
             </div>
 
             <!-- Overlay: Game Over Screen -->
-            <div id="gameover-overlay" class="hidden absolute inset-0 bg-zinc-950/90 flex flex-col items-center justify-center p-4 text-center z-20">
+            <div id="gameover-overlay" class="hidden absolute inset-0 bg-zinc-950/90 flex flex-col items-center justify-center p-4 text-center z-30">
                 <h2 class="text-xl sm:text-3xl text-red-500 mb-2 font-black tracking-widest drop-shadow-[0_2px_0_#000]">GAME OVER</h2>
                 <p id="final-score-text" class="text-xs sm:text-sm text-zinc-300 mb-6">SKOR: 00000</p>
-                <button id="restart-btn" class="arcade-btn bg-yellow-400 hover:bg-yellow-300 active:bg-yellow-500 text-zinc-950 font-bold py-3 px-6 rounded-xl text-xs sm:text-sm border-2 border-zinc-900 flex items-center gap-2">
+                <button id="restart-btn" class="arcade-btn bg-yellow-400 hover:bg-yellow-300 active:bg-yellow-500 text-zinc-950 font-bold py-3 px-6 rounded-xl text-xs sm:text-sm border-2 border-zinc-900 flex items-center gap-2 cursor-pointer z-40">
                     🔄 COBA LAGI
                 </button>
             </div>
@@ -91,11 +91,11 @@
     <!-- Mobile Touch Controls Footer -->
     <footer class="w-full max-w-2xl pb-2 sm:pb-4 px-2">
         <div class="grid grid-cols-2 gap-3 sm:gap-4 h-20 sm:h-24">
-            <button id="btn-duck" class="arcade-btn bg-zinc-800 active:bg-zinc-700 text-zinc-200 font-bold rounded-xl border-2 border-zinc-700 flex flex-col items-center justify-center gap-1 active:scale-95">
+            <button id="btn-duck" class="arcade-btn bg-zinc-800 active:bg-zinc-700 text-zinc-200 font-bold rounded-xl border-2 border-zinc-700 flex flex-col items-center justify-center gap-1 active:scale-95 cursor-pointer">
                 <span class="text-lg sm:text-2xl">👇</span>
                 <span class="text-[10px] sm:text-xs">NUNDUK (DUCK)</span>
             </button>
-            <button id="btn-jump" class="arcade-btn bg-emerald-600 active:bg-emerald-500 text-white font-bold rounded-xl border-2 border-emerald-800 flex flex-col items-center justify-center gap-1 active:scale-95">
+            <button id="btn-jump" class="arcade-btn bg-emerald-600 active:bg-emerald-500 text-white font-bold rounded-xl border-2 border-emerald-800 flex flex-col items-center justify-center gap-1 active:scale-95 cursor-pointer">
                 <span class="text-lg sm:text-2xl">🚀</span>
                 <span class="text-[10px] sm:text-xs">LOMPAT (JUMP)</span>
             </button>
@@ -106,16 +106,11 @@
         // ==========================================
         // 0. GAMBAR KARAKTER (PNG SPRITES)
         // ==========================================
-        // Silakan sesuaikan nama/path file gambar PNG yang Anda miliki di sini
         const dinoImgStand = new Image();
-        dinoImgStand.src = 'dino.png'; // Gambar Dino Berdiri / Berjalan
+        dinoImgStand.src = 'dino.png';
 
         const dinoImgDuck = new Image();
-        dinoImgDuck.src = 'dino2.png'; // Gambar Dino Menunduk
-
-        // (Opsional) Jika Anda memiliki 2 frame gambar untuk animasi jalan:
-        // const dinoImgRun1 = new Image(); dinoImgRun1.src = 'dino-run1.png';
-        // const dinoImgRun2 = new Image(); dinoImgRun2.src = 'dino-run2.png';
+        dinoImgDuck.src = 'dino2.png';
 
         // ==========================================
         // 1. SOUND SYNTHESIZER (Web Audio API)
@@ -172,8 +167,8 @@
                     osc.stop(time + duration);
                 };
 
-                playNote(587.33, now, 0.08); // D5
-                playNote(880, now + 0.08, 0.15); // A5
+                playNote(587.33, now, 0.08);
+                playNote(880, now + 0.08, 0.15);
             }
 
             playHit() {
@@ -215,7 +210,6 @@
         const soundBtn = document.getElementById('sound-btn');
         const soundText = document.getElementById('sound-text');
 
-        // Fixed internal canvas resolution for rendering consistency
         const GAME_WIDTH = 800;
         const GAME_HEIGHT = 300;
         const GROUND_Y = 240;
@@ -296,20 +290,16 @@
 
             draw() {
                 if (this.isDucking) {
-                    // Gambar saat menunduk
                     if (dinoImgDuck.complete && dinoImgDuck.naturalWidth !== 0) {
                         ctx.drawImage(dinoImgDuck, this.x, this.y, this.width, this.height);
                     } else {
-                        // Fallback jika PNG belum siap
                         ctx.fillStyle = '#3f3f46';
                         ctx.fillRect(this.x, this.y, this.width, this.height);
                     }
                 } else {
-                    // Gambar saat berdiri/berjalan/melompat
                     if (dinoImgStand.complete && dinoImgStand.naturalWidth !== 0) {
                         ctx.drawImage(dinoImgStand, this.x, this.y, this.width, this.height);
                     } else {
-                        // Fallback jika PNG belum siap
                         ctx.fillStyle = '#3f3f46';
                         ctx.fillRect(this.x, this.y, this.width, this.height);
                     }
@@ -542,7 +532,7 @@
         // ==========================================
         function handleActionStart(action) {
             audio.init();
-            if (gameState === 'START') {
+            if (gameState === 'START' || gameState === 'GAMEOVER') {
                 resetGame();
             } else if (gameState === 'PLAYING') {
                 if (action === 'JUMP') player.jump();
@@ -574,16 +564,20 @@
             }
         });
 
-        // Swipe Detection Setup
+        // Swipe & Tap Detection Setup
         let touchStartY = 0;
         let touchStartX = 0;
 
         const handleTouchStart = (e) => {
+            // Biarkan tombol restart menangani kliknya sendiri
+            if (e.target.closest('#restart-btn')) return;
+
             touchStartY = e.touches[0].clientY;
             touchStartX = e.touches[0].clientX;
         };
 
         const handleTouchEnd = (e) => {
+            if (e.target.closest('#restart-btn')) return;
             if (!touchStartY || !touchStartX) return;
 
             const touchEndY = e.changedTouches[0].clientY;
@@ -592,18 +586,14 @@
             const diffY = touchEndY - touchStartY;
             const diffX = touchEndX - touchStartX;
 
-            // Check if vertical swipe was larger than horizontal swipe
             if (Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 30) {
                 if (diffY < 0) {
-                    // Swipe Up -> Jump
                     handleActionStart('JUMP');
                 } else {
-                    // Swipe Down -> Duck momentarily
                     handleActionStart('DUCK');
                     setTimeout(() => handleActionEnd('DUCK'), 400);
                 }
             } else if (Math.abs(diffY) <= 30 && Math.abs(diffX) <= 30) {
-                // Tap Anywhere -> Jump
                 handleActionStart('JUMP');
             }
 
@@ -611,15 +601,19 @@
             touchStartX = 0;
         };
 
-        // Attach Swipe/Tap to Game Box Canvas Container
         const gameBox = document.getElementById('game-box');
         gameBox.addEventListener('touchstart', (e) => {
-            e.preventDefault();
+            // Hindari e.preventDefault() jika menekan tombol restart
+            if (!e.target.closest('#restart-btn')) {
+                e.preventDefault();
+            }
             handleTouchStart(e);
         }, { passive: false });
 
         gameBox.addEventListener('touchend', (e) => {
-            e.preventDefault();
+            if (!e.target.closest('#restart-btn')) {
+                e.preventDefault();
+            }
             handleTouchEnd(e);
         }, { passive: false });
 
@@ -644,12 +638,21 @@
             btnDuck.classList.remove('active');
         }, { passive: false });
 
-        // Buttons Click Fallback for Desktop
         btnJump.addEventListener('mousedown', () => handleActionStart('JUMP'));
         btnDuck.addEventListener('mousedown', () => handleActionStart('DUCK'));
         btnDuck.addEventListener('mouseup', () => handleActionEnd('DUCK'));
 
-        restartBtn.addEventListener('click', () => resetGame());
+        // Event Listener Tombol Restart
+        const handleRestart = (e) => {
+            if (e) e.stopPropagation();
+            resetGame();
+        };
+
+        restartBtn.addEventListener('click', handleRestart);
+        restartBtn.addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+            handleRestart(e);
+        });
 
         // Audio Mute Toggle
         soundBtn.addEventListener('click', () => {
