@@ -58,9 +58,9 @@
         </div>
     </header>
 
-    <!-- Main Game Container -->
-    <main class="relative w-full max-w-2xl flex-1 flex items-center justify-center my-2">
-        <div id="game-box" class="relative w-full aspect-[2/1] sm:aspect-[21/9] max-h-[75vh] border-2 sm:border-4 border-zinc-700 rounded-xl overflow-hidden bg-stone-100 shadow-2xl">
+    <!-- Main Game Container (Dipertinggi/Diperpanjang ke atas & bawah) -->
+    <main class="relative w-full max-w-2xl flex-1 flex items-center justify-center my-2 overflow-hidden">
+        <div id="game-box" class="relative w-full aspect-[4/3] sm:aspect-[16/9] max-h-[80vh] border-2 sm:border-4 border-zinc-700 rounded-xl overflow-hidden bg-stone-100 shadow-2xl">
             <canvas id="gameCanvas" class="w-full h-full block cursor-pointer"></canvas>
 
             <!-- Overlay: Start Screen -->
@@ -90,13 +90,13 @@
 
     <!-- Mobile Touch Controls Footer -->
     <footer class="w-full max-w-2xl pb-2 sm:pb-4 px-2">
-        <div class="grid grid-cols-2 gap-3 sm:gap-4 h-20 sm:h-24">
+        <div class="grid grid-cols-2 gap-3 sm:gap-4 h-16 sm:h-20">
             <button id="btn-duck" class="arcade-btn bg-zinc-800 active:bg-zinc-700 text-zinc-200 font-bold rounded-xl border-2 border-zinc-700 flex flex-col items-center justify-center gap-1 active:scale-95 cursor-pointer">
-                <span class="text-lg sm:text-2xl">👇</span>
+                <span class="text-base sm:text-xl">👇</span>
                 <span class="text-[10px] sm:text-xs">NUNDUK (DUCK)</span>
             </button>
             <button id="btn-jump" class="arcade-btn bg-emerald-600 active:bg-emerald-500 text-white font-bold rounded-xl border-2 border-emerald-800 flex flex-col items-center justify-center gap-1 active:scale-95 cursor-pointer">
-                <span class="text-lg sm:text-2xl">🚀</span>
+                <span class="text-base sm:text-xl">🚀</span>
                 <span class="text-[10px] sm:text-xs">LOMPAT (JUMP)</span>
             </button>
         </div>
@@ -210,9 +210,10 @@
         const soundBtn = document.getElementById('sound-btn');
         const soundText = document.getElementById('sound-text');
 
+        // Resolusi diperpanjang ke atas/bawah (Tinggi: 450, Posisi Tanah: 380)
         const GAME_WIDTH = 800;
-        const GAME_HEIGHT = 300;
-        const GROUND_Y = 240;
+        const GAME_HEIGHT = 450;
+        const GROUND_Y = 380;
 
         canvas.width = GAME_WIDTH;
         canvas.height = GAME_HEIGHT;
@@ -243,7 +244,7 @@
                 this.duckWidth = 55;
                 this.y = GROUND_Y - this.normalHeight;
                 this.vy = 0;
-                this.jumpForce = -12.5;
+                this.jumpForce = -13.5;
                 this.isGrounded = true;
                 this.isDucking = false;
                 this.legFrame = 0;
@@ -329,7 +330,7 @@
                     this.width = 40;
                     this.height = 30;
                     this.x = GAME_WIDTH;
-                    const heights = [GROUND_Y - 78, GROUND_Y - 52, GROUND_Y - 32];
+                    const heights = [GROUND_Y - 90, GROUND_Y - 55, GROUND_Y - 32];
                     this.y = heights[Math.floor(Math.random() * heights.length)];
                     this.wingFrame = 0;
                 }
@@ -370,7 +371,7 @@
         class Cloud {
             constructor() {
                 this.x = GAME_WIDTH;
-                this.y = Math.random() * 100 + 30;
+                this.y = Math.random() * 150 + 40;
                 this.width = 46;
                 this.height = 14;
                 this.speed = (Math.random() * 0.5 + 0.5);
@@ -569,7 +570,6 @@
         let touchStartX = 0;
 
         const handleTouchStart = (e) => {
-            // Biarkan tombol restart menangani kliknya sendiri
             if (e.target.closest('#restart-btn')) return;
 
             touchStartY = e.touches[0].clientY;
@@ -603,7 +603,6 @@
 
         const gameBox = document.getElementById('game-box');
         gameBox.addEventListener('touchstart', (e) => {
-            // Hindari e.preventDefault() jika menekan tombol restart
             if (!e.target.closest('#restart-btn')) {
                 e.preventDefault();
             }
