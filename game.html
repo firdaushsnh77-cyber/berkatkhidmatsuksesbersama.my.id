@@ -475,13 +475,17 @@
                 ctx.save();
                 ctx.globalAlpha = alpha;
 
-                // Tampilkan Logo Bhasma
-                const logoWidth = 70;
-                const logoHeight = 70;
-                const logoX = (GAME_WIDTH - logoWidth) / 2;
-                const logoY = 90 - offsetY;
+                // Hitung Rasio Asli Logo Agar Tidak Gepeng
+                let logoHeight = 75; 
+                let logoWidth = 75;
 
                 if (logoImg.complete && logoImg.naturalWidth !== 0) {
+                    const aspectRatio = logoImg.naturalWidth / logoImg.naturalHeight;
+                    logoWidth = logoHeight * aspectRatio;
+
+                    const logoX = (GAME_WIDTH - logoWidth) / 2;
+                    const logoY = 80 - offsetY;
+
                     ctx.drawImage(logoImg, logoX, logoY, logoWidth, logoHeight);
                 }
 
@@ -502,7 +506,7 @@
                 ctx.shadowOffsetY = 3;
                 ctx.shadowBlur = 0;
 
-                ctx.fillText("SEMANGAT LAGI PANG BUHANMU!", GAME_WIDTH / 2, logoY + logoHeight + 30);
+                ctx.fillText("SEMANGAT LAGI PANG BUHANMU!", GAME_WIDTH / 2, 80 - offsetY + logoHeight + 30);
                 ctx.restore();
             }
         }
